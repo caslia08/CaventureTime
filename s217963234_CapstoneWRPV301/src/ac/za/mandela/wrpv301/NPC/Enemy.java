@@ -8,11 +8,9 @@ import javafx.scene.image.Image;
 
 public class Enemy extends NonPlayableCharacter {
 
-    Item weakness;
-    int damage;
-    Boolean isAlive;
-    String positiveResult;
-    String negativeResult;
+    private transient Item weakness;
+    private transient int damage;
+    private transient Boolean isAlive;
 
     public Enemy(String name, Item item, Item weakness, int damage) {
         super(name, item);
@@ -46,9 +44,9 @@ public class Enemy extends NonPlayableCharacter {
     public String takeDamage(Item item, Player player, Room room) {
         if (weakness.equals(item)) {
             isAlive = false;
-            room.setDescription("You defeated the " + this.name + "in here. Check your map to see if there is anything worth while in here.");
+            room.setDescription("You defeated the " + this.getName() + "in here. Check your map to see if there is anything worth while in here.");
             room.removeNpcIcon();
-            return item.getName() + " worked! You have defeated " + name;
+            return item.getName() + " worked! You have defeated " + this.getName();
         } else {
             player.takeDamage(this);
             item.useItem();
@@ -56,14 +54,5 @@ public class Enemy extends NonPlayableCharacter {
 
         }
     }
-
-    public void setPositiveResult(String positiveResult) {
-        this.positiveResult = positiveResult;
-    }
-
-    public void setNegativeResult(String negativeResult) {
-        this.negativeResult = negativeResult;
-    }
-
 
 }

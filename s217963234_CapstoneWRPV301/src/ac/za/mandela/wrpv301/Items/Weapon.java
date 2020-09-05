@@ -4,17 +4,15 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 
 public class Weapon implements Item {
-    private String name;
-    private int uses;
-    private String description = "";
-    private StringProperty weaponName = new SimpleStringProperty();
-    private IntegerProperty weaponUses = new SimpleIntegerProperty();
-    Image icon;
+    private transient String name;
+    private transient int uses;
+    private transient String description = "";
+    private transient StringProperty weaponName = new SimpleStringProperty();
+    private transient IntegerProperty weaponUses = new SimpleIntegerProperty();
+    private transient Image icon;
 
     public Weapon(String name) {
         this.name = name;
@@ -24,7 +22,6 @@ public class Weapon implements Item {
         this.icon = new Image(Weapon.class.getResourceAsStream("/Images/sword.png"));
 
     }
-
 
     @Override
     public String getName() {

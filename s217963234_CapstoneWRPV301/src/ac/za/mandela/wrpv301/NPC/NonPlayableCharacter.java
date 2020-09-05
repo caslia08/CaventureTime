@@ -5,11 +5,11 @@ import ac.za.mandela.wrpv301.Player.Player;
 import javafx.scene.image.Image;
 
 public class NonPlayableCharacter {
-    String name;
-    Item item;
-    String positiveResult;
-    String negativeResult;
-    Image icon;
+    private transient String name;
+    private transient Item item;
+    private transient String positiveResult;
+    private transient String negativeResult;
+    private transient Image icon;
 
     public NonPlayableCharacter(String name, Item item) {
         this.name = name;
@@ -38,5 +38,21 @@ public class NonPlayableCharacter {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public String getPositiveResult() {
+        return positiveResult;
+    }
+
+    public void setPositiveResult(String positiveResult) {
+        this.positiveResult = positiveResult;
+    }
+
+    public String getNegativeResult() {
+        return negativeResult;
+    }
+
+    public void setNegativeResult(String negativeResult) {
+        this.negativeResult = negativeResult;
     }
 }

@@ -8,12 +8,12 @@ import javafx.scene.image.Image;
 
 public class Tool implements Item {
 
-    private String description;
-    String name;
-    Image icon;
-    int uses;
-    private StringProperty toolName = new SimpleStringProperty();
-    private IntegerProperty toolUses = new SimpleIntegerProperty();
+    private transient String description;
+    private transient String name;
+    private transient Image icon;
+    private transient int uses;
+    private transient StringProperty toolName = new SimpleStringProperty();
+    private transient IntegerProperty toolUses = new SimpleIntegerProperty();
 
     public Tool(String name) {
         this.name = name;

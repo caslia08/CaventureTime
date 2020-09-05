@@ -7,15 +7,19 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
-public class Key implements Item {
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-    private Image icon;
-    private String description;
-    String name;
-    private StringProperty keyName = new SimpleStringProperty();
-    int uses;
-    private IntegerProperty keyUses = new SimpleIntegerProperty();
-    Room room;
+public class Key implements Item, Serializable {
+    private transient Image icon;
+    private transient String description;
+    private transient String name;
+    private transient StringProperty keyName = new SimpleStringProperty();
+    private transient int uses;
+    private transient IntegerProperty keyUses = new SimpleIntegerProperty();
+    private transient Room room;
 
     public Key(String name) {
         this.name = name;
@@ -68,7 +72,6 @@ public class Key implements Item {
         this.keyName.set(name);
 
     }
-
     @Override
     public void setItemUses(Integer uses) {
         this.keyUses.set(uses);
@@ -79,10 +82,23 @@ public class Key implements Item {
         uses--;
         keyUses.set(uses);
     }
-
     @Override
     public String toString()
     {
         return String.format("%s",  keyName.getValue());
+    }
+
+    private void writeObject(ObjectOutputStream s) throws IOException {
+
+    }
+    private void readObject(ObjectInputStream s)  throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        initValues();
+    }
+    private void initValues(){
+        this.uses = 1;
+        this.keyName.set(name);
+        this.keyUses.set(uses);
+        this.icon = new Image(Key.class.getResourceAsStream("/Images/key.png"));
     }
 }

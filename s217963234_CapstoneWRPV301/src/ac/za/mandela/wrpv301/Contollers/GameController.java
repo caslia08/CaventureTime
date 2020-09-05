@@ -22,9 +22,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -59,21 +61,9 @@ public class GameController implements Initializable {
         alert.setHeaderText("Are you sure want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            Stage stage = (Stage) vbox.getScene().getWindow();
+            Stage stage = (Stage) vboxContainer.getScene().getWindow();
             stage.close();
         }
-    }
-    @FXML
-    void loadGameClicked(ActionEvent event) {
-
-    }
-    @FXML
-    void saveGameClicked(ActionEvent event) {
-    }
-
-    @FXML
-    void controlsClicked(ActionEvent event) {
-        //New window with controls
     }
 
     @Override
@@ -86,12 +76,38 @@ public class GameController implements Initializable {
 
     }
 
+    @FXML
+    void loadGameClicked(ActionEvent event) {
+
+    }
+    @FXML
+    void saveGameClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Jungle", "Adventure"));
+        Stage stage = (Stage) vboxContainer.getScene().getWindow();
+
+        File file = fileChooser.showSaveDialog(stage);
+        if(file != null)
+        {
+            try {
+
+            } catch (Exception exc)
+            {exc.printStackTrace();}
+        }
+    }
+
+    @FXML
+    void controlsClicked(ActionEvent event) {
+        //New window with controls
+    }
+
+
+
     public void onEnter(ActionEvent actionEvent){
-        String text = txtMain.getText().toLowerCase();
+        String text = txtMain.getText();
+        String input = txtInput.getText().toLowerCase();
 
-        playerHealth.setProgress(0.5);
-        if (txtInput.getText().equals("help")) {
-
+        if (input.equals("help")) {
             txtMain.setText("In order to choose a direction in which you want to go simply type  \"north\" , \"south\", \"east\"" +
                     "\"west\". \n\nIn the top right corner you will see your Inventory which contains tools and weapons " +
                     "throughout out the game you will encounter enemies and other strange characters that you might require you to utilise either " +
@@ -99,9 +115,9 @@ public class GameController implements Initializable {
                     "of either item type. \n To get rid of an item or pick it you will type \"drop\" or \"grab\" followed by the item name respectively. "+
                     "\n\nType \"start\" to begin your adventure");
 
-        } else if (txtInput.getText().equals("clear")) {
+        } else if (input.equals("clear")) {
             txtMain.clear();
-        } else if (txtInput.getText().equals("start")) {
+        } else if (input.equals("start")) {
             if(this.newGame == null) {
                 this.newGame = new AdventureGame(mapPane, playerIcon);
                 newGame.startGame();
@@ -113,12 +129,14 @@ public class GameController implements Initializable {
                 text = text + "\n\n" + "¯\\_( ͡° ͜ʖ ͡°)_/¯ Uhm I we already have something going... You may save and exit if you like";
                 txtMain.setText(text);
             }
-        } else if (txtInput.getText().equals("look")) {
+        } else if (input.equals("look")) {
             text = text + "\n" + newGame.look();
             txtMain.setText(text);
         } else if(newGame != null) {
             txtMain.setText(newGame.look());
-            text = text + "\n\n" + newGame.processCommand(txtInput.getText());
+           // text = text + "\n\n" + newGame.processCommand(txtInput.getText());
+            text = newGame.processCommand(txtInput.getText());
+
             txtMain.setText(text);
 
         }
@@ -126,8 +144,6 @@ public class GameController implements Initializable {
             text = text + "\n\n" + "Please start a game before you tell me what to do\n ̿̿ ̿̿ ̿̿ ̿'̿'\\̵͇̿̿\\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿ ";
             txtMain.setText(text);
         }
-
-
         txtMain.setScrollTop(Double.MAX_VALUE);
         txtInput.clear();
         updateHealth();
@@ -146,28 +162,31 @@ public class GameController implements Initializable {
             return new Observable[]{item.nameProperty()};
         };
         observableItems = FXCollections.observableArrayList(extractor);
-        observableItems.addAll(player.inventory);
+        observableItems.addAll(player.getInventory());
         lbxItems.setItems(observableItems);
 
         //TODO add pop up for visual
-        lbxItems.setOnMouseClicked(event -> {
+        /*lbxItems.setOnMouseClicked(event -> {
             Item curItem = lbxItems.getSelectionModel().getSelectedItem();
             Stage stage = new Stage();
             //It's always null
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML/popup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("popup.fxml"));
             System.out.println(loader);
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("popup.fxml"));
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("FXML/popup.fxml"));
-                stage.setScene(new Scene(root));
-            } catch (IOException e) {
-                e.printStackTrace();
+            System.out.println(loader.getLocation());
+            if(loader != null) {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("popup.fxml"));
+                    stage.setScene(new Scene(root));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             PopUpController controller = loader.getController();
             controller.initData(curItem);
             stage.show();
             System.out.println(lbxItems.getSelectionModel().getSelectedItem().getName());
-        });
+        });*/
     }
 
     public void updateInventory()

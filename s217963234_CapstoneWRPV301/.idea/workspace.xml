@@ -1,7 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d23df80-f867-464f-b535-ea2938c0d3d7" name="Default Changelist" comment="" />
+    <list default="true" id="4d23df80-f867-464f-b535-ea2938c0d3d7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/Adventure.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/Adventure.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/AdventureGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/AdventureGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/MapController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/DOMParser/DOMParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/FXML/Game.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/FXML/popup.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/cave.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/key.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/long-hair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/mountain-formation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/sad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/sheep.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/stick-man.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/sword.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/tools.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/troll.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Images/witch.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Key.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Key.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Tool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Tool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Weapon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Items/Weapon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Friendly.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Friendly.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/NonPlayableCharacter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/NonPlayableCharacter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Room/Connection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Room/Connection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Room/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Room/Room.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Stylesheets/stylesheet1.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Stylesheets/stylesheet1.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/Adventure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/Adventure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/AdventureGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/AdventureGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/MapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/DOMParser/DOMParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/FXML/Game.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/FXML/popup.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Key.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Tool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Items/Weapon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Friendly.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Friendly.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/NonPlayableCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/NonPlayableCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Room/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Room/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Room/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Room/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Stylesheets/stylesheet1.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Stylesheets/stylesheet1.css" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +70,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1dg0O7WwHo7Jp1bUvDVqRqXmIjo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Practical7" />
@@ -94,11 +151,23 @@
       <workItem from="1598975871014" duration="18139000" />
       <workItem from="1599051424740" duration="74098000" />
       <workItem from="1599300609571" duration="109000" />
+      <workItem from="1599300961581" duration="6084000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -15,10 +15,10 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Game.fxml"));
-        primaryStage.setTitle("Caventure Time");
+        Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
+        primaryStage.setTitle("Jungled");
         primaryStage.setScene(new Scene(root, 1200, 900));
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Images/cave.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/jungle.png")));
         primaryStage.show();
 
     }

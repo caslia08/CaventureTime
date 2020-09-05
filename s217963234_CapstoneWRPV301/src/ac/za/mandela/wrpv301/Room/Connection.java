@@ -10,15 +10,15 @@ import java.util.ArrayList;
 
 public class Connection {
 
-    private Room[] connRooms;
-    private StackPane connStackPane;
-    private Rectangle connRect;
-    private Rectangle connLock;
-    private Image iconImage;
-    private int dir;
-    private ArrayList<StackPane> connectionArray = new ArrayList<StackPane>();
-    private double x;
-    private double y;
+    private transient Room[] connRooms;
+    private transient StackPane connStackPane;
+    private transient Rectangle connRect;
+    private transient Rectangle connLock;
+    private transient Image iconImage;
+    private transient int dir;
+    private transient ArrayList<StackPane> connectionArray = new ArrayList<StackPane>();
+    private transient double x;
+    private transient double y;
 
     public Connection(Room room1, Room room2, int dir)
     {

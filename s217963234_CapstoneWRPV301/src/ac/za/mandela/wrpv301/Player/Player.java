@@ -2,21 +2,52 @@ package ac.za.mandela.wrpv301.Player;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.Room.Room;
+import javafx.scene.shape.Rectangle;
+
 import java.util.ArrayList;
 
 public class Player {
 
-    double Health;
-    public ArrayList<Item> inventory = new ArrayList<>();
-    int maxCapacity = 3;
-    Room currentLocation;
-    private Boolean picked;
-    private Boolean dropped;
+    private transient double Health;
+    private transient ArrayList<Item> inventory = new ArrayList<>();
+    private transient int maxCapacity = 3;
+    private transient Room currentLocation;
+    private transient Boolean picked;
+    private transient Boolean dropped;
+    private transient Rectangle playerIcon;
+    private transient double x;
+    private transient double y;
 
     public Player() {
         this.Health = 100;
         picked  = false;
         dropped = false;
+    }
+
+    public Rectangle getPlayerIcon() {
+        return playerIcon;
+    }
+
+    public void setPlayerIcon(Rectangle playerIcon) {
+        this.playerIcon = playerIcon;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setXY(double x, double y) {
+        this.x = x;
+        this.y = y;
+
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 
     public Boolean getPicked() {

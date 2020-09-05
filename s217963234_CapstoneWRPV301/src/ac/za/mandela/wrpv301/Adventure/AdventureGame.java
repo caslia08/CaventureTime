@@ -11,8 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-
-//TODO: ADD MAP CONTROLLER BACK
 public class AdventureGame {
     private Player player;
     private Adventure adventure;

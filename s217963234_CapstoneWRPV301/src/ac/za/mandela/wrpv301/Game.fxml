@@ -40,7 +40,7 @@
     </MenuBar>
     <AnchorPane fx:id="mainAnchorPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="NEVER">
       <children>
-            <Text fx:id="mainLabel" fill="WHITE" layoutX="29.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Caventure Time" wrappingWidth="519.5182800292969">
+            <Text fx:id="mainLabel" fill="WHITE" layoutX="29.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Jungled" wrappingWidth="519.5182800292969">
                <font>
                   <Font name="Sylfaen" size="43.0" />
                </font>

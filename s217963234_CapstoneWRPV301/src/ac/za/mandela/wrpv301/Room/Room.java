@@ -46,7 +46,6 @@ public class Room{
         roomInfo.setText(tooltipText);
     }
 
-    //Will use when showing certain rooms
     public Boolean getDiscovered() {
         return isDiscovered;
     }

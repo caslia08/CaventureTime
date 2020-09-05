@@ -25,9 +25,9 @@ public class MapController {
     private ArrayList<StackPane> roomStackPanes = new ArrayList<StackPane>();
     private ArrayList<Connection> pathConnection = new ArrayList<Connection>();
 
-
     public MapController(Pane pane, Rectangle playerIcon) {
         this.playerIcon = playerIcon;
+        //player.setPlayerIcon(playerIcon);
         playerIcon.setVisible(true);
         this.pane = pane;
         Image icon = new Image(MapController.class.getResourceAsStream("/Images/female.png"));
@@ -35,15 +35,12 @@ public class MapController {
         playerIcon.setHeight(30);
         playerIcon.setFill(new ImagePattern(icon));
     }
-
     public void setPlayer(Player player) {
         this.player = player;
     }
-
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
-
     public void move(int direction)
     {
        this.tl = new TranslateTransition();
@@ -56,7 +53,6 @@ public class MapController {
        pane.getChildren().add(playerIcon);
        updateMap();
     }
-
     private TranslateTransition getDir(int dir, TranslateTransition translateTransition)
     {
 
@@ -88,13 +84,11 @@ public class MapController {
         }
         return translateTransition;
     }
-
     public void drawAllRooms()
     {
         //Gets the first room for me and draws and places it.
         Room curRoom = rooms.get(0);
         curRoom.setXY(15,310);
-        //Rectangle startRoom = drawRoom(curRoom, curRoom.getX(), curRoom.getY());
         StackPane newRoom = curRoom.getRoomStackPane();
         newRoom.setLayoutX(curRoom.getX());
         newRoom.setLayoutY(curRoom.getY());
@@ -205,4 +199,5 @@ public class MapController {
     public ArrayList<Connection> getPathConnection() {
         return pathConnection;
     }
+
 }

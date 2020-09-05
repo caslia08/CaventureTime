@@ -37,22 +37,22 @@ public class Friendly extends NonPlayableCharacter {
     public String interact(Item item, Player player, Room room) {
         if (itemNeeded.equals(item)) {
             isActive = false;
-            room.setItem(this.item);
+            room.setItem(this.getItem());
             room.addItemIcon();
             room.removeNpcIcon();
-            room.setDescription("The "+ name + " seems to have left. Check on the map if anything was left behind");
-            return positiveResult;
+            room.setDescription("The "+ this.getName() + " seems to have left. Check on the map if anything was left behind");
+            return this.getPositiveResult();
         } else {
-            return negativeResult;
+            return this.getNegativeResult();
 
         }
     }
 
     public void setPositiveResult(String positiveResult) {
-        this.positiveResult = positiveResult;
+        super.setPositiveResult(positiveResult);
     }
 
     public void setNegativeResult(String negativeResult) {
-        this.negativeResult = negativeResult;
+        super.setPositiveResult(negativeResult);
     }
 }
