@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<!--/-->
+
+<VBox fx:id="vboxContainer" stylesheets="@Stylesheets/stylesheet1.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ac.za.mandela.wrpv301.Contollers.GameController">
+  <children>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem fx:id="saveGame" mnemonicParsing="false" onAction="#saveGameClicked" text="Save" />
+            <MenuItem fx:id="loadGame" mnemonicParsing="false" onAction="#loadGameClicked" text="Load" />
+            <MenuItem fx:id="exitGame" mnemonicParsing="false" onAction="#exitGameClicked" text="Quit" />
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem fx:id="controls" mnemonicParsing="false" onAction="#controlsClicked" text="Controls" />
+              </items>
+            </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane fx:id="mainAnchorPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="NEVER">
+      <children>
+            <Text fx:id="mainLabel" fill="WHITE" layoutX="29.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Caventure Time" wrappingWidth="519.5182800292969">
+               <font>
+                  <Font name="Sylfaen" size="43.0" />
+               </font>
+            </Text>
+            <SplitPane dividerPositions="0.58271497162811" layoutX="29.0" layoutY="73.0" prefHeight="678.0" prefWidth="1122.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox layoutX="5.0" layoutY="5.0" prefHeight="652.0" prefWidth="643.0">
+                           <children>
+                              <TextArea fx:id="txtMain" prefHeight="522.0" prefWidth="664.0" text="Welcome to My Adventure Game! Type &quot;help&quot; for more information on how to play the game or type &quot;start&quot; to begin our adventure! " wrapText="true" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></TextArea>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="460.0">
+                                 <children>
+                                    <Label text="Health : ">
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Serif Regular" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar fx:id="playerHealth" prefWidth="200.0" progress="1.0" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="150.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <TextField fx:id="txtInput" alignment="CENTER" onAction="#onEnter" prefHeight="68.0" prefWidth="474.0" promptText="Enter Commands">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font></TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="666.0" prefWidth="500.0">
+                     <children>
+                        <SplitPane dividerPositions="0.35988819007686934" layoutY="-2.0" orientation="VERTICAL" prefHeight="666.0" prefWidth="458.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="351.0">
+                                 <children>
+                                    <VBox layoutX="4.0" prefHeight="236.0" prefWidth="450.0">
+                                       <children>
+                                          <Label text="Inventory">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <ListView fx:id="lbxItems" prefHeight="190.0" prefWidth="450.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="241.0" prefWidth="241.0">
+                                 <children>
+                                    <VBox layoutY="-1.0" prefHeight="422.0" prefWidth="458.0">
+                                       <children>
+                                          <Label text="Map">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane fx:id="mapPane" prefHeight="388.0" prefWidth="458.0" style="-fx-background-color: #91b59b;">
+                                             <children>
+                                                <Rectangle fx:id="playerIcon" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="-16.0" layoutY="-14.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="20.0" x="51.0" y="346.0" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

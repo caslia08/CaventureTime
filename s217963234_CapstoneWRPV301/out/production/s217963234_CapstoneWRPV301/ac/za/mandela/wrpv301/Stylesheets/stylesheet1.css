@@ -1,0 +1,22 @@
+.label{
+-fx-font-size: 25px;
+    -fx-text-fill: #91b59b ;
+}
+MenuBar
+{
+    -fx-background-color: #070705;
+}
+
+SplitPane
+{
+    -fx-background-color: #070705 ;
+}
+
+#lbxItems{
+    -fx-font-size: 30px;
+}
+
+.progress-bar
+{
+    -fx-progress-color: #91b59b;
+}
