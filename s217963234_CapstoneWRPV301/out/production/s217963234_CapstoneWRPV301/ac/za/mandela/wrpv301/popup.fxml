@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="popUpAnchor" prefHeight="289.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ac.za.mandela.wrpv301.Contollers.PopUpController">
+<AnchorPane prefHeight="289.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ac.za.mandela.wrpv301.Contollers.GameController">
    <children>
-      <Pane layoutX="-1.0" layoutY="1.0" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #91b59b;">
+      <Pane fx:id="panePopup" layoutX="-1.0" layoutY="1.0" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #91b59b;">
          <children>
             <HBox layoutX="4.0" layoutY="3.0" prefHeight="293.0" prefWidth="489.0">
                <children>

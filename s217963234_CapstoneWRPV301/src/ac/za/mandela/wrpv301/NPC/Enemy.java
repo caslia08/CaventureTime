@@ -1,12 +1,19 @@
 package ac.za.mandela.wrpv301.NPC;
 
 import ac.za.mandela.wrpv301.Items.Item;
+import ac.za.mandela.wrpv301.Items.Tool;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Items.Weapon;
 import ac.za.mandela.wrpv301.Room.Room;
 import javafx.scene.image.Image;
 
-public class Enemy extends NonPlayableCharacter {
+import java.awt.font.TextHitInfo;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Enemy extends NonPlayableCharacter implements Serializable {
 
     private transient Item weakness;
     private transient int damage;
@@ -53,6 +60,26 @@ public class Enemy extends NonPlayableCharacter {
             return "The "+item.getName() + " did not work! You have taken damage! ";
 
         }
+    }
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeObject(weakness);
+        outputStream.writeInt(damage);
+        outputStream.writeBoolean(isAlive);
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.weakness =(Item)inputStream.readObject();
+        this.damage =inputStream.readInt();
+        this.isAlive =inputStream.readBoolean();
+
+    }
+    private void initValues(){
+        this.weakness = null;
+        this.damage = 0;
+        this.isAlive = true;
     }
 
 }

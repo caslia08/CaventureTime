@@ -3,12 +3,17 @@ import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.Room.Room;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
 
-    private transient double Health;
+    private transient double health;
     private transient ArrayList<Item> inventory = new ArrayList<>();
     private transient int maxCapacity = 3;
     private transient Room currentLocation;
@@ -19,7 +24,7 @@ public class Player {
     private transient double y;
 
     public Player() {
-        this.Health = 100;
+        this.health = 100;
         picked  = false;
         dropped = false;
     }
@@ -118,11 +123,11 @@ public class Player {
     }
 
     public void takeDamage(Enemy enemy) {
-        this.Health -= enemy.getDamage();
+        this.health -= enemy.getDamage();
     }
 
     public double getHealth() {
-        return Health;
+        return health;
     }
 
     public void setLocation(Room room) {
@@ -163,5 +168,44 @@ public class Player {
         }
         return -1;
     }
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+
+        if (this.currentLocation == null)
+        outputStream.writeDouble(health);
+        outputStream.writeObject(inventory);
+        outputStream.writeInt(maxCapacity);
+        outputStream.writeObject(currentLocation);
+        outputStream.writeBoolean(picked);
+        outputStream.writeBoolean(dropped);
+        outputStream.writeObject(playerIcon);
+        outputStream.writeDouble(x);
+        outputStream.writeDouble(y);
+
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.health = inputStream.readDouble();
+        this.inventory = (ArrayList<Item>) inputStream.readObject();
+        this.maxCapacity = inputStream.readInt();
+        this.currentLocation = (Room) inputStream.readObject();
+        this.picked = inputStream.readBoolean();
+        this.dropped = inputStream.readBoolean();
+        this.playerIcon = (Rectangle) inputStream.readObject();
+        this.x = inputStream.readDouble();
+        this.y = inputStream.readDouble();
+    }
+    private void initValues(){
+        this.health = 100;
+        this.inventory = new ArrayList<Item>();
+        this.maxCapacity = 3;
+        this.picked = false;
+        this.dropped = false;
+        this.x = 0;
+        this.y = 0;
+    }
+
 
 }

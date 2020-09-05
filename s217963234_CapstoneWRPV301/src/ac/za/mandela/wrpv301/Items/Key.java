@@ -48,6 +48,11 @@ public class Key implements Item, Serializable {
     }
 
     @Override
+    public void setDesc(String desc) {
+        this.description = desc;
+    }
+
+    @Override
     public Image getImage() {
         return icon;
     }
@@ -88,12 +93,26 @@ public class Key implements Item, Serializable {
         return String.format("%s",  keyName.getValue());
     }
 
-    private void writeObject(ObjectOutputStream s) throws IOException {
-
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeUTF(name);
+        outputStream.writeUTF(description);
+        outputStream.writeInt(uses);
+        outputStream.writeObject(room);
+        outputStream.writeObject(icon);
+        outputStream.writeInt(keyUses.getValue());
+        outputStream.writeUTF(keyName.getValue());
     }
-    private void readObject(ObjectInputStream s)  throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
         initValues();
+        this.name = inputStream.readUTF();
+        this.description = inputStream.readUTF();
+        this.uses = inputStream.readInt();
+        this.room = (Room) inputStream.readObject();
+        this.icon = (Image) inputStream.readObject();
+        this.keyUses.setValue(inputStream.readInt());
+        this.keyName.set(inputStream.readUTF());
     }
     private void initValues(){
         this.uses = 1;

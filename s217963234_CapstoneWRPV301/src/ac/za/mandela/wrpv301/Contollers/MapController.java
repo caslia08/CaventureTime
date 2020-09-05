@@ -11,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 
 public class MapController {

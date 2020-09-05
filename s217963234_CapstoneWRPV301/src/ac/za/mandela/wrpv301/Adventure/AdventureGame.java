@@ -7,23 +7,29 @@ import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.NPC.Friendly;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Room.Room;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class AdventureGame {
-    private Player player;
-    private Adventure adventure;
-    private Boolean isGameOver = false;
-    private Item curItem;
-    public Pane mapPane;
-    public MapController mapController;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class AdventureGame implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private transient Player player;
+    private transient Adventure adventure;
+    private transient Boolean isGameOver = false;
+    private transient Item curItem;
+    private transient Pane mapPane;
+    private transient MapController mapController;
 
     public AdventureGame(Pane mapPane, Rectangle playerIcon) {
         this.mapPane = mapPane;
         this.mapController = new MapController(mapPane, playerIcon);
     }
-
     private void checkGame() {
         if (player.getHealth() == 0)
             isGameOver = true;
@@ -31,7 +37,6 @@ public class AdventureGame {
             isGameOver = true;
         }
     }
-
     public void startGame() {
         player = new Player();
         adventure = new Adventure();
@@ -41,7 +46,6 @@ public class AdventureGame {
         mapController.setRooms(adventure.getWorldRooms());
         mapController.drawAllRooms();
     }
-
     public String look() {
         return player.viewLocation();
     }
@@ -167,5 +171,27 @@ public class AdventureGame {
         } else return null;
     }
 
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeObject(player);
+        outputStream.writeObject(adventure);
+        outputStream.writeObject(isGameOver);
+        outputStream.writeObject(curItem);
+        outputStream.writeObject(mapPane);
+        outputStream.writeObject(mapController);
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.player = (Player) inputStream.readObject();
+        this.adventure = (Adventure) inputStream.readObject();
+        this.isGameOver = inputStream.readBoolean();
+        this.curItem = (Item) inputStream.readObject();
+        this.mapPane = (Pane) inputStream.readObject();
+        this.mapController = (MapController) inputStream.readObject();
+    }
+    private void initValues(){
+        this.isGameOver = false;
+    }
 
 }

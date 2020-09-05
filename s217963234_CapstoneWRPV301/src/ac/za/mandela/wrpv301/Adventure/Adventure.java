@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Adventure implements Serializable {
+    private static final long serialVersionUID = 1L;
     private transient Room start;
     private transient ArrayList<Room> worldRooms;
 
@@ -157,15 +158,17 @@ public class Adventure implements Serializable {
         return this.worldRooms;
     }
 
-    private void writeObject(ObjectOutputStream s) throws IOException {
-    s.defaultWriteObject();
-    s.writeObject(start);
-    s.writeObject(worldRooms);
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeObject(start);
+        outputStream.writeObject(worldRooms);
     }
 
-    private void readObject(ObjectInputStream s)  throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
         initValues();
+        this.start = (Room) inputStream.readObject();
+        this.worldRooms= (ArrayList<Room>) inputStream.readObject();
     }
 
     private void initValues(){
@@ -206,22 +209,20 @@ public class Adventure implements Serializable {
         witch.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/witch.png")));
         boneBoy.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/skeleton.png")));
 
-
-
-
+        pickAxe.setDesc("Pick-Axe is a generally T-shaped hand tool used for prying and removing obstacles");
+        key.setDesc("This shiny golden key can prove useful for opening any locked passage ways be careful not to lose it or use it unnecessarily");
+        torch.setDesc("The red glowing torch can serve many purposes sometimes the most useful will be the most unusual");
+        mallets.setDesc("This lovely traditional music item can be used to play a xylophone and perhaps you favourite Boney M tune ;)");
+        shears.setDesc("A universal tool that is primarily used for cutting down demonic sheep to size");
+        sunBeam.setDesc("This tool provides a bean of pure sunlight useful for any load-shedding mishaps if you have solar panels and potentially good for combating trolls ");
 
         this.start = new Room(null, shears, "You are standing outside along a stream, you see what looks like shears near you - maybe you should grab that?" +
                 "\nYou see an entrance to a cave in front of you.", false);
-
-
         //TODO change desc
         Room room1 = new Room(null, key, "You are in a very poorly lit but you see a shingy gold key lying on the floor maybe it will" +
                 " prove to be use full", false);
-
-
         Room room2 = new Room(sheep, torch, "As you enter this cavern you immediately see a sheep upright upon 2 legs looking menacingly at you! What will you do? " +
                 "surely you have some kind of weapon... \n to the the north you see a door that could get you out of here...", true);
-
         //remove pickaxe
         Room room3 = new Room(witch, null, "As you enter the room you see an entrancingly horrendous looking witch that reassures you that she is in fact a \"good\" witch " +
                 "she asks if she you have a torch she could borrow to light her cigarette whilst she laments her life's choices including a few choice hexes that were made. ( ಠ ͜ʖಠ)..." + " " +

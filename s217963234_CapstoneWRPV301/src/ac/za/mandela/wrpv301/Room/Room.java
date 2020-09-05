@@ -3,8 +3,8 @@ package ac.za.mandela.wrpv301.Room;
 import ac.za.mandela.wrpv301.Contollers.MapController;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.Items.Key;
+import ac.za.mandela.wrpv301.Items.Tool;
 import ac.za.mandela.wrpv301.NPC.NonPlayableCharacter;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
@@ -12,10 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
+import org.w3c.dom.css.Rect;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room{
+public class Room implements Serializable {
 
     final int maxDirections = 4;
     private NonPlayableCharacter npc;
@@ -220,5 +225,52 @@ public class Room{
                 return true;
         }
         return false;
+    }
+
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+
+        outputStream.writeInt(maxDirections);
+        outputStream.writeObject(npc);
+        outputStream.writeObject(item);
+        outputStream.writeUTF(description);
+        outputStream.writeBoolean(isLocked);
+        outputStream.writeBoolean(drawn);
+        outputStream.writeBoolean(isDiscovered);
+        outputStream.writeObject(roomStackPane);
+        outputStream.writeObject(roomRect);
+        outputStream.writeObject(itemRect);
+        outputStream.writeObject(npcRect);
+        outputStream.writeObject(roomInfo);
+        outputStream.writeDouble(x);
+        outputStream.writeDouble(y);
+
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+
+        this.npc= (NonPlayableCharacter) inputStream.readObject();
+        this.item= (Item) inputStream.readObject();
+        this.description= inputStream.readUTF();
+        this.isLocked= inputStream.readBoolean();
+        this.drawn= inputStream.readBoolean();
+        this.isDiscovered= inputStream.readBoolean();
+        this.roomStackPane= (StackPane) inputStream.readObject();
+        this.roomRect= (Rectangle) inputStream.readObject();
+        this.itemRect= (Rectangle) inputStream.readObject();
+        this.npcRect=  (Rectangle) inputStream.readObject();
+        this.roomInfo= (Tooltip) inputStream.readObject();
+        this.x= inputStream.readDouble();
+        this.y= inputStream.readDouble();
+    }
+    private void initValues(){
+        this.description = "";
+        this.isLocked = false;
+        this.drawn = false;
+        createRoom();
+        x =0;
+        y=0;
     }
 }

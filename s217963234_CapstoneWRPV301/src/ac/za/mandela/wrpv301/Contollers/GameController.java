@@ -10,24 +10,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -49,10 +48,13 @@ public class GameController implements Initializable {
     public Text mainLabel;
     public AnchorPane mainAnchorPane;
     public VBox vboxContainer;
-    @FXML
-    public VBox vbox;
-    @FXML
-    private Rectangle playerIcon;
+    public Rectangle playerIcon;
+    public Pane panePopup;
+    public ImageView itemImageView;
+    public Label lblItemName;
+    public Label lblDescription;
+
+    public Stage stage;
 
     @FXML
     void exitGameClicked(ActionEvent event) {
@@ -61,7 +63,7 @@ public class GameController implements Initializable {
         alert.setHeaderText("Are you sure want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            Stage stage = (Stage) vboxContainer.getScene().getWindow();
+            stage = (Stage) vboxContainer.getScene().getWindow();
             stage.close();
         }
     }
@@ -78,6 +80,12 @@ public class GameController implements Initializable {
 
     @FXML
     void loadGameClicked(ActionEvent event) {
+        stage = (Stage) vboxContainer.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Game");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Jungle Adventure"));
+
+        File chosenFile = fileChooser.showOpenDialog(stage);
 
     }
     @FXML
@@ -86,11 +94,11 @@ public class GameController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Jungle", "Adventure"));
         Stage stage = (Stage) vboxContainer.getScene().getWindow();
 
-        File file = fileChooser.showSaveDialog(stage);
-        if(file != null)
+        File newFile = fileChooser.showSaveDialog(stage);
+        if(newFile != null)
         {
-            try {
-
+            try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(newFile))) {
+                outputStream.writeObject(newGame);
             } catch (Exception exc)
             {exc.printStackTrace();}
         }
@@ -100,8 +108,6 @@ public class GameController implements Initializable {
     void controlsClicked(ActionEvent event) {
         //New window with controls
     }
-
-
 
     public void onEnter(ActionEvent actionEvent){
         String text = txtMain.getText();
@@ -166,28 +172,21 @@ public class GameController implements Initializable {
         lbxItems.setItems(observableItems);
 
         //TODO add pop up for visual
-        /*lbxItems.setOnMouseClicked(event -> {
+        lbxItems.setOnMouseClicked(event -> {
             Item curItem = lbxItems.getSelectionModel().getSelectedItem();
-            Stage stage = new Stage();
-            //It's always null
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("popup.fxml"));
-            System.out.println(loader);
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("popup.fxml"));
-            System.out.println(loader.getLocation());
-            if(loader != null) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("popup.fxml"));
-                    stage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            PopUpController controller = loader.getController();
-            controller.initData(curItem);
+            initData(curItem);
+            stage = (Stage) panePopup.getScene().getWindow();
             stage.show();
-            System.out.println(lbxItems.getSelectionModel().getSelectedItem().getName());
-        });*/
+        });
     }
+
+    public void initData(Item item)
+    {
+        lblItemName = new Label(item.getName());
+        lblDescription = new Label(item.getDesc());
+        itemImageView = new ImageView(item.getImage());
+    }
+
 
     public void updateInventory()
     {

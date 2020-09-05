@@ -1,14 +1,22 @@
 package ac.za.mandela.wrpv301.Room;
+import ac.za.mandela.wrpv301.Items.Item;
+import ac.za.mandela.wrpv301.NPC.NonPlayableCharacter;
 import javafx.geometry.Pos;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Connection {
+public class Connection implements Serializable {
 
     private transient Room[] connRooms;
     private transient StackPane connStackPane;
@@ -99,5 +107,40 @@ public class Connection {
 
     public ArrayList<StackPane> getConnectionArray() {
         return connectionArray;
+    }
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeObject(connRooms);
+        outputStream.writeObject(connStackPane);
+        outputStream.writeObject(connRect);
+        outputStream.writeObject(connLock);
+        outputStream.writeObject(iconImage);
+        outputStream.writeInt(dir);
+        outputStream.writeObject(connectionArray);
+        outputStream.writeObject(x);
+        outputStream.writeObject(y);
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.connRooms= (Room[]) inputStream.readObject();
+        this.connStackPane= (StackPane) inputStream.readObject();
+        this.connRect= (Rectangle) inputStream.readObject();
+        this.connLock= (Rectangle) inputStream.readObject();
+        this.iconImage=  (Image) inputStream.readObject();
+        this.dir = inputStream.readInt();
+        this.connectionArray= (ArrayList<StackPane>) inputStream.readObject();
+        this.x= inputStream.readDouble();
+        this.y= inputStream.readDouble();
+    }
+    private void initValues(){
+
+        this.connStackPane = new StackPane();
+        this.connRooms = new Room[2];
+        connRooms[0] = null;
+        connRooms[1] = null;
+        createRoom();
+        connRect.setFill(Color.BLACK);
     }
 }

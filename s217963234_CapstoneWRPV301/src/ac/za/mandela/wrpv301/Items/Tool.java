@@ -1,12 +1,17 @@
 package ac.za.mandela.wrpv301.Items;
 
+import ac.za.mandela.wrpv301.Room.Room;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Tool implements Item {
+public class Tool implements Item, Serializable {
 
     private transient String description;
     private transient String name;
@@ -70,9 +75,40 @@ public class Tool implements Item {
     }
 
     @Override
+    public void setDesc(String desc) {
+        this.description = desc;
+    }
+
+    @Override
     public String toString()
     {
         return String.format("%s",  toolName.getValue());
+    }
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeUTF(name);
+        outputStream.writeUTF(description);
+        outputStream.writeInt(uses);
+        outputStream.writeObject(icon);
+        outputStream.writeInt(toolUses.getValue());
+        outputStream.writeUTF(toolName.getValue());
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.name = inputStream.readUTF();
+        this.description = inputStream.readUTF();
+        this.uses = inputStream.readInt();
+        this.icon = (Image) inputStream.readObject();
+        this.toolUses.setValue(inputStream.readInt());
+        this.toolName.set(inputStream.readUTF());
+    }
+    private void initValues(){
+        this.uses = 1;
+        this.toolName.set(name);
+        this.toolUses.set(uses);
+        this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
     }
 
 }

@@ -5,8 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Weapon implements Item {
+public class Weapon implements Item, Serializable {
     private transient String name;
     private transient int uses;
     private transient String description = "";
@@ -71,6 +75,37 @@ public class Weapon implements Item {
     public void useItem() {
         uses--;
         weaponUses.set(uses);
+    }
+
+    @Override
+    public void setDesc(String desc) {
+        this.description = desc;
+    }
+
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeUTF(name);
+        outputStream.writeUTF(description);
+        outputStream.writeInt(uses);
+        outputStream.writeObject(icon);
+        outputStream.writeInt(weaponUses.getValue());
+        outputStream.writeUTF(weaponName.getValue());
+    }
+    private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        initValues();
+        this.name = inputStream.readUTF();
+        this.description = inputStream.readUTF();
+        this.uses = inputStream.readInt();
+        this.icon = (Image) inputStream.readObject();
+        this.weaponUses.setValue(inputStream.readInt());
+        this.weaponName.set(inputStream.readUTF());
+    }
+    private void initValues(){
+        this.uses = 1;
+        this.weaponName.set(name);
+        this.weaponUses.set(uses);
+        this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
     }
 
 
