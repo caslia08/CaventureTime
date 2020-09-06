@@ -5,7 +5,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.image.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,7 +12,7 @@ import java.io.Serializable;
 
 public class Tool implements Item, Serializable {
 
-    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
+    private transient final String ImageURL = "/Images/tools.png";
     private transient String description;
     private transient String name;
     private transient int uses;
@@ -34,9 +33,10 @@ public class Tool implements Item, Serializable {
     }
 
     @Override
-    public Image getImage() {
-        return icon;
+    public String getImageURL() {
+        return ImageURL;
     }
+
     @Override
     public String getName() {
         return name;

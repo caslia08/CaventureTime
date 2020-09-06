@@ -108,7 +108,7 @@
                                           </Label>
                                           <Pane fx:id="mapPane" prefHeight="388.0" prefWidth="458.0" style="-fx-background-color: transparent;">
                                              <children>
-                                                <Rectangle fx:id="playerIcon" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="-16.0" layoutY="-14.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="20.0" x="51.0" y="346.0" />
+                                                <Rectangle fx:id="playerIcon" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="35.0" layoutY="332.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="20.0" />
                                              </children>
                                           </Pane>
                                        </children>

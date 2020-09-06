@@ -16,7 +16,7 @@ public class Weapon implements Item, Serializable {
     private transient String description = "";
     private transient StringProperty weaponName = new SimpleStringProperty();
     private transient IntegerProperty weaponUses = new SimpleIntegerProperty();
-    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/sword.png"));
+    private transient final String ImageURL = "/Images/sword.png";
 
     //private transient String url = "/Images/sword.png";
 
@@ -40,8 +40,8 @@ public class Weapon implements Item, Serializable {
     }
 
     @Override
-    public Image getImage() {
-        return icon;
+    public String getImageURL() {
+        return ImageURL ;
     }
 
     @Override

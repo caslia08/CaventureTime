@@ -42,19 +42,22 @@ public class AdventureGame implements Serializable {
         adventure = new Adventure();
         Room start = adventure.getStart();
         player.setLocation(start);
-
         mapController.setPlayer(player);
         mapController.setRooms(adventure.getWorldRooms());
         mapController.drawAllRooms();
     }
 
+    public void setMapPane(Pane mapPane) {
+        this.mapPane = mapPane;
+    }
+
     public void reDrawMap(Rectangle playerIcon)
     {
-        this.mapPane = mapPane;
         this.mapController = new MapController(mapPane, playerIcon);
         mapController.setPlayer(player);
         mapController.setRooms(adventure.getWorldRooms());
         mapController.drawAllRooms();
+        mapController.refreshRooms();
     }
     public String look() {
         return player.viewLocation();
@@ -85,7 +88,7 @@ public class AdventureGame implements Serializable {
                         String itemName = data[1].toLowerCase();
                         if (itemName.equals((curRoom.getItem().getName()).toLowerCase())) {
                             curItem = curRoom.getItem();
-                            return player.pickUp(curItem);
+                            return player.pickUp(curItem, mapController);
                         } else
                             return "Can't seem to find that item..";
                     } else
@@ -98,11 +101,11 @@ public class AdventureGame implements Serializable {
                         if (curRoom.containsNPC()) {
                             if (curRoom.getNpc() instanceof Enemy) {
                                 Enemy curEnemy = (Enemy) curRoom.getNpc();
-                                return curEnemy.takeDamage(item, player, curRoom);
+                                return curEnemy.takeDamage(item, player, curRoom, mapController);
                             } else
                             {
                                 Friendly curFriendly = (Friendly) curRoom.getNpc();
-                                return curFriendly.interact(item, player, curRoom);
+                                return curFriendly.interact(item, curRoom, mapController);
                             }
                         }
                         else {
@@ -187,8 +190,6 @@ public class AdventureGame implements Serializable {
         outputStream.writeObject(adventure);
         outputStream.writeObject(isGameOver);
         outputStream.writeObject(curItem);
-        //outputStream.writeObject(mapPane);
-        //outputStream.writeObject(mapController);
     }
     private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
@@ -197,7 +198,6 @@ public class AdventureGame implements Serializable {
         this.adventure = (Adventure) inputStream.readObject();
 
         //TODO look at this and fix
-
         //this.mapPane = (Pane) inputStream.readObject();
         //this.mapController = (MapController) inputStream.readObject();
     }

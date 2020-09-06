@@ -5,20 +5,20 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.image.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Key implements Item, Serializable {
-    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/key.png"));
-    private transient String description;
     private transient String name;
-    private transient StringProperty keyName = new SimpleStringProperty();
+    private transient String description;
     private transient int uses;
+    private transient StringProperty keyName = new SimpleStringProperty();
     private transient IntegerProperty keyUses = new SimpleIntegerProperty();
     private transient Room room;
+    private transient final String ImageURL = "/Images/key.png";
+
 
     public Key(String name, String description) {
         this.name = name;
@@ -47,8 +47,8 @@ public class Key implements Item, Serializable {
     }
 
     @Override
-    public Image getImage() {
-        return icon;
+    public String  getImageURL() {
+        return ImageURL;
     }
 
     @Override

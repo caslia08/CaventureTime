@@ -1,4 +1,5 @@
 package ac.za.mandela.wrpv301.Player;
+import ac.za.mandela.wrpv301.Contollers.MapController;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.Room.Room;
@@ -71,20 +72,20 @@ public class Player implements Serializable {
         this.dropped = dropped;
     }
 
-    public String pickUp(Item newItem) {
+    public String pickUp(Item newItem, MapController mapController) {
         if (!(inventory.size() == maxCapacity)) {
             inventory.add(newItem);
             this.getCurrentLocation().setItem(null);
             picked = true;
-            currentLocation.removeItemIcon();
-            updateTooltip();
+            mapController.removeItemIcon(this.getCurrentLocation());
+            mapController.updateTooltip(this.getCurrentLocation());
             return "You have successfully picked up: " + newItem.getName();
         } else {
             return "You are over encumbered - please select and item to drop if you wish to pick up : " + newItem.getName();
         }
     }
 
-    public void updateTooltip()
+   /* public void updateTooltip()
     {
         String tooltipText = "";
         if(this.currentLocation.getItem() == null)
@@ -106,7 +107,7 @@ public class Player implements Serializable {
 
         }
          this.currentLocation.setRoomInfo(tooltipText);
-    }
+    }*/
 
     public String dropItem(int index) {
         Item curItem = inventory.get(index);
@@ -114,8 +115,8 @@ public class Player implements Serializable {
             inventory.remove(curItem);
             dropped = true;
             this.getCurrentLocation().setItem(curItem);
-            this.currentLocation.addItemIcon();
-            updateTooltip();
+            //this.currentLocation.addItemIcon();
+            //updateTooltip();
             return "You have successfully dropped: " + curItem.getName() + " hope you don't need that later...";
         } else {
             return "Fool! You do not have that item!";
@@ -176,7 +177,6 @@ public class Player implements Serializable {
         outputStream.writeObject(currentLocation);
         outputStream.writeBoolean(picked);
         outputStream.writeBoolean(dropped);
-        //outputStream.writeObject(playerIcon);
         outputStream.writeDouble(x);
         outputStream.writeDouble(y);
 
@@ -192,10 +192,8 @@ public class Player implements Serializable {
             this.currentLocation = (Room) curObj;
         }
         else this.currentLocation = null;
-
         this.picked = inputStream.readBoolean();
         this.dropped = inputStream.readBoolean();
-        //this.playerIcon = (Rectangle) inputStream.readObject();
         this.x = inputStream.readDouble();
         this.y = inputStream.readDouble();
     }

@@ -94,6 +94,8 @@ public class GameController implements Initializable {
                 player = newGame.getPlayer();
                 txtMain.setText(newGame.look());
                 setUpInventory();
+                mapPane.getChildren().clear();
+                newGame.setMapPane(mapPane);
                 newGame.reDrawMap(playerIcon);
                 System.out.println("Load worked");
             } catch (IOException | ClassNotFoundException e) {
@@ -112,6 +114,7 @@ public class GameController implements Initializable {
         {
             try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(newFile))) {
                 outputStream.writeObject(newGame);
+                System.out.println("Save Successful");
             } catch (Exception exc)
             {exc.printStackTrace();}
         }
@@ -197,7 +200,7 @@ public class GameController implements Initializable {
     {
         lblItemName = new Label(item.getName());
         lblDescription = new Label(item.getDesc());
-        itemImageView = new ImageView(item.getImage());
+        itemImageView = new ImageView(new Image(item.getImageURL()));
     }
 
 
@@ -220,8 +223,10 @@ public class GameController implements Initializable {
                 itemTemp = item;
             }
         }
-        if(itemTemp != null)
+        if(itemTemp != null) {
             observableItems.remove(itemTemp);
+            player.getInventory().remove(itemTemp);
+        }
     }
 
 

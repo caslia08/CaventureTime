@@ -33,9 +33,9 @@ public class Adventure implements Serializable {
         Weapon mallets = new Weapon("Xylophone Mallets", "This lovely traditional music item can be used to play a xylophone and perhaps you favourite Boney M tune ;)");
 
 
-        Enemy sheep = new Enemy("Killer Sheep", null, shears, 30);
-        Enemy troll = new Enemy("Ugly Troll", mallets, sunBeam, 50);
-        Enemy boneBoy = new Enemy("Strange Talking Skeleton", null, mallets, 15);
+        Enemy sheep = new Enemy("Killer Sheep", null, "/Images/sheep.png", shears, 30);
+        Enemy troll = new Enemy("Ugly Troll", mallets,"/Images/troll.png", sunBeam, 50);
+        Enemy boneBoy = new Enemy("Strange Talking Skeleton", null,"/Images/skeleton.png", mallets, 15);
 
         sheep.setNegativeResult("Oof that was not the right thing to do. You may notice a decrease in your health");
         sheep.setPositiveResult("Without his wool he is has been made");
@@ -48,25 +48,25 @@ public class Adventure implements Serializable {
 
         Tool torch = new Tool("torch", "The red glowing torch can serve many purposes sometimes the most useful will be the most unusual");
         Key key = new Key("Key", "This shiny golden key can prove useful for opening any locked passage ways be careful not to lose it or use it unnecessarily");
+        Key key1 = new Key("Key", "This rusted key doesn't look like it opens anything useful");
         Key pickAxe = new Key("Pick-Axe", "Pick-Axe is a generally T-shaped hand tool used for prying and removing obstacles");
 
 
-        Friendly witch = new Friendly("Friendly wicked witch", pickAxe, torch);
-        Friendly goodTroll = new Friendly("Forlorn Troll", null, null);
+        Friendly witch = new Friendly("Friendly wicked witch", pickAxe, "/Images/witch.png", torch);
+        Friendly goodTroll = new Friendly("Forlorn Troll", null, "/Images/sad.png", null);
 
-        witch.setPositiveResult("Witch,\"Many thanks! I think I should grab my broom and lament elsewhere, here's a gift I am leaving behind \"");
-        witch.setNegativeResult("Witch,\"What a cruel world - I guess you will struggle to keep moving... \"");
+        witch.setPositiveResult("The witch thanks you as she leaves the room to light up. She has left something behind for you");
+        witch.setNegativeResult("Witch, what a cruel world guess you will struggle to keep moving.");
 
+        goodTroll.setPositiveResult("wfsdtwetrer");
+        goodTroll.setNegativeResult("afdffasdfasfs");
 
-        sheep.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/sheep.png")));
+        /*sheep.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/sheep.png")));
         troll.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/troll.png")));
         goodTroll.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/sad.png")));
         witch.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/witch.png")));
         boneBoy.setIcon(new Image(Adventure.class.getResourceAsStream("/Images/skeleton.png")));
-
-
-
-
+*/
 
         this.start = new Room(null, shears, "You are standing outside along a stream, you see what looks like shears near you - maybe you should grab that?" +
                 "\nYou see an entrance to a cave in front of you.", false);
@@ -87,14 +87,14 @@ public class Adventure implements Serializable {
 
         //Use Pick-Axe
         Room room4 = new Room(null, null, "The room you are now in seems desolate and reminiscent of nothing good in the world.. you see a pile of rocks " +
-                "blocking what seems to be another exit to the east and a dark shadowy entrance to the east of you...", false);
+                "blocking what seems to be another exit to the east and a dark shadowy entrance to the south of you...", false);
 
-        Room room5 = new Room(null, key, "You enter a room that appears to be completely barren except for all but a key... the only exits are to the west (seems to be " +
+        Room room5 = new Room(goodTroll, key1, "You enter a room that appears to be completely barren except for all but a key... the only exits are to the west (seems to be " +
                 "the same way you got in) and the south of you", true);
 
-        Room room6 = new Room(goodTroll, sunBeam, "Upon entering the dark room you see that in the corner there appears to be a troll bride" +
+        Room room6 = new Room(null, sunBeam, "Upon entering the dark room you see that in the corner there appears to be a troll bride" +
                 "she swiftly tells you that she is very sad due to the fact that she was ditched at the alter by her troll husband to be and warns that he's" +
-                "good for nothing buns of rock might still be dwelling within this cave system. She points out one of the gifts left by a guest and suggests that it might be useful to you", false);
+                "good for nothing buns of rock might still be dwelling within this cave system. She points out one of the gifts left by a guest and suggests that it might be useful to you", true);
         //TODO Add a key to room 6
         Room room7 = new Room(troll, null, "You enter the room and see a macho man of a troll - chest puffed out ready to attack what do you do? ..", false);
 
@@ -104,13 +104,12 @@ public class Adventure implements Serializable {
                 "choices and question your own sanity and why you are in fact wondering through a system of caves all alone.. He begins to start hitting you with inappropriate " +
                 "bones - this could cause some damage if you don't do something quickly! If only you picked up some kind of mallet ", false);
 
-
-
         //N 0
         //S 1
         //E 2
         //W 3
         key.setRoom(room2);
+        key1.setRoom(room6);
         pickAxe.setRoom(room5);
         start.setExit(room1, 0);
 
