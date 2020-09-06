@@ -24,9 +24,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+
+import javax.swing.*;
+import java.io.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -83,9 +83,23 @@ public class GameController implements Initializable {
         stage = (Stage) vboxContainer.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Game");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Jungle Adventure"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Jungle", "Adventure"));
 
         File chosenFile = fileChooser.showOpenDialog(stage);
+
+        if(chosenFile != null)
+        {
+            try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(chosenFile))) {
+                newGame = (AdventureGame) inputStream.readObject();
+                player = newGame.getPlayer();
+                txtMain.setText(newGame.look());
+                setUpInventory();
+                newGame.reDrawMap(playerIcon);
+                System.out.println("Load worked");
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
     @FXML
@@ -93,7 +107,6 @@ public class GameController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Jungle", "Adventure"));
         Stage stage = (Stage) vboxContainer.getScene().getWindow();
-
         File newFile = fileChooser.showSaveDialog(stage);
         if(newFile != null)
         {

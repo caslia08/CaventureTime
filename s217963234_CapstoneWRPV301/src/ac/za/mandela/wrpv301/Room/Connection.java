@@ -36,7 +36,7 @@ public class Connection implements Serializable {
       connRooms[1] = room2;
       this.dir = dir;
       createRoom();
-      connRect.setFill(Color.BLACK);
+      connRect.setFill(Color.rgb(145,181,155));
     }
 
     public Room getFirstRoom () {

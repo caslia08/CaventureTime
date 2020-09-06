@@ -23,17 +23,17 @@ import java.util.ArrayList;
 public class Room implements Serializable {
 
     final int maxDirections = 4;
-    private NonPlayableCharacter npc;
-    private Item item;
-    public String description;
-    private Boolean isLocked;
-    private Boolean drawn;
-    private Boolean isDiscovered; 
-    private StackPane roomStackPane;
-    private Rectangle roomRect;
-    private Rectangle itemRect;
-    private Rectangle npcRect;
-    private Tooltip roomInfo;
+    private transient NonPlayableCharacter npc;
+    private transient Item item;
+    private transient String description;
+    private transient Boolean isLocked;
+    private transient Boolean drawn;
+    private transient Boolean isDiscovered;
+    private transient StackPane roomStackPane;
+    private transient Rectangle roomRect;
+    private transient Rectangle itemRect;
+    private transient Rectangle npcRect;
+    private transient Tooltip roomInfo;
     private double x, y;
 
     public Room(NonPlayableCharacter npc, Item item, String description, Boolean isLocked) {
@@ -42,9 +42,19 @@ public class Room implements Serializable {
         this.description = description;
         this.isLocked = isLocked;
         this.drawn = false;
-        createRoom();
+        this.isDiscovered = false;
+        //createRoom();
         x =0;
         y=0;
+    }
+
+    public Room() {
+
+    }
+
+    public void InitUIElements()
+    {
+        createRoom();
     }
 
     public void setRoomInfo(String tooltipText) {
@@ -74,20 +84,20 @@ public class Room implements Serializable {
     private void createRoom()
     {
         this.roomRect = new Rectangle(70,70);
-        roomRect.setFill(Color.rgb(7,7,5));
+        roomRect.setFill(Color.rgb(145,181,155));
         this.roomStackPane = new StackPane();
         roomStackPane.setPrefWidth(65);
         roomStackPane.setPrefHeight(65);
-        String tooltipText = "";
+        String tooltipText = this.description;
 
         this.roomStackPane.getChildren().add(roomRect);
         if(this.item != null ) {
-            tooltipText+= "Items: " + this.item.getName();
+            tooltipText+= "\nItems: " + this.item.getName();
            addItemIcon();
         }
         else
         {
-            tooltipText+= "Items: None ";
+            tooltipText+= "\nItems: None ";
         }
 
         if(this.npc != null ) {
@@ -105,6 +115,7 @@ public class Room implements Serializable {
 
         roomInfo = new Tooltip(tooltipText);
         roomInfo.setWrapText(true);
+        roomInfo.setPrefWidth(250);
         Tooltip.install(roomRect, roomInfo);
     }
     public StackPane getRoomStackPane() {
@@ -230,19 +241,18 @@ public class Room implements Serializable {
 
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
         outputStream.defaultWriteObject();
-
-        outputStream.writeInt(maxDirections);
         outputStream.writeObject(npc);
         outputStream.writeObject(item);
         outputStream.writeUTF(description);
         outputStream.writeBoolean(isLocked);
         outputStream.writeBoolean(drawn);
         outputStream.writeBoolean(isDiscovered);
-        outputStream.writeObject(roomStackPane);
-        outputStream.writeObject(roomRect);
-        outputStream.writeObject(itemRect);
-        outputStream.writeObject(npcRect);
-        outputStream.writeObject(roomInfo);
+        //Java fx scene stuff not serializable
+        //outputStream.writeObject(roomStackPane);
+        //outputStream.writeObject(roomRect);
+        //outputStream.writeObject(itemRect);
+        //outputStream.writeObject(npcRect);
+        //outputStream.writeObject(roomInfo);
         outputStream.writeDouble(x);
         outputStream.writeDouble(y);
 
@@ -250,26 +260,34 @@ public class Room implements Serializable {
     private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         initValues();
+        Object curObj = inputStream.readObject();
+        if(curObj instanceof NonPlayableCharacter)
+        {
+            this.npc = (NonPlayableCharacter) curObj;
+        }
+        else this.npc = null;
 
-        this.npc= (NonPlayableCharacter) inputStream.readObject();
         this.item= (Item) inputStream.readObject();
         this.description= inputStream.readUTF();
         this.isLocked= inputStream.readBoolean();
         this.drawn= inputStream.readBoolean();
         this.isDiscovered= inputStream.readBoolean();
-        this.roomStackPane= (StackPane) inputStream.readObject();
-        this.roomRect= (Rectangle) inputStream.readObject();
-        this.itemRect= (Rectangle) inputStream.readObject();
-        this.npcRect=  (Rectangle) inputStream.readObject();
-        this.roomInfo= (Tooltip) inputStream.readObject();
+        //this.roomStackPane= (StackPane) inputStream.readObject();
+        //this.roomRect= (Rectangle) inputStream.readObject();
+        //this.itemRect= (Rectangle) inputStream.readObject();
+        //this.npcRect=  (Rectangle) inputStream.readObject();
+        //this.roomInfo= (Tooltip) inputStream.readObject();
         this.x= inputStream.readDouble();
         this.y= inputStream.readDouble();
+
+        this.roomStackPane = this.getRoomStackPane();
     }
     private void initValues(){
+        this.npc = new NonPlayableCharacter();
         this.description = "";
         this.isLocked = false;
         this.drawn = false;
-        createRoom();
+        //createRoom();
         x =0;
         y=0;
     }

@@ -16,14 +16,16 @@ public class Weapon implements Item, Serializable {
     private transient String description = "";
     private transient StringProperty weaponName = new SimpleStringProperty();
     private transient IntegerProperty weaponUses = new SimpleIntegerProperty();
-    private transient Image icon;
+    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/sword.png"));
 
-    public Weapon(String name) {
+    //private transient String url = "/Images/sword.png";
+
+    public Weapon(String name, String description) {
         this.name = name;
+        this.description = description;
         this.uses = 1;
         this.weaponName.set(name);
         this.weaponUses.set(uses);
-        this.icon = new Image(Weapon.class.getResourceAsStream("/Images/sword.png"));
 
     }
 
@@ -77,17 +79,11 @@ public class Weapon implements Item, Serializable {
         weaponUses.set(uses);
     }
 
-    @Override
-    public void setDesc(String desc) {
-        this.description = desc;
-    }
-
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
         outputStream.defaultWriteObject();
         outputStream.writeUTF(name);
         outputStream.writeUTF(description);
         outputStream.writeInt(uses);
-        outputStream.writeObject(icon);
         outputStream.writeInt(weaponUses.getValue());
         outputStream.writeUTF(weaponName.getValue());
     }
@@ -97,15 +93,15 @@ public class Weapon implements Item, Serializable {
         this.name = inputStream.readUTF();
         this.description = inputStream.readUTF();
         this.uses = inputStream.readInt();
-        this.icon = (Image) inputStream.readObject();
         this.weaponUses.setValue(inputStream.readInt());
         this.weaponName.set(inputStream.readUTF());
     }
     private void initValues(){
+        this.name = "";
+        this.description = "";
         this.uses = 1;
-        this.weaponName.set(name);
-        this.weaponUses.set(uses);
-        this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
+        this.weaponName = new SimpleStringProperty();
+        this.weaponUses = new SimpleIntegerProperty();
     }
 
 

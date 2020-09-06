@@ -23,6 +23,7 @@ public class Enemy extends NonPlayableCharacter implements Serializable {
         super(name, item);
         this.weakness = weakness;
         this.damage = damage;
+        this.isAlive = true;
     }
 
     public String getName() { return super.getName(); }
@@ -58,7 +59,6 @@ public class Enemy extends NonPlayableCharacter implements Serializable {
             player.takeDamage(this);
             item.useItem();
             return "The "+item.getName() + " did not work! You have taken damage! ";
-
         }
     }
 
@@ -77,7 +77,7 @@ public class Enemy extends NonPlayableCharacter implements Serializable {
 
     }
     private void initValues(){
-        this.weakness = null;
+        this.weakness = new Weapon("", "");
         this.damage = 0;
         this.isAlive = true;
     }

@@ -23,7 +23,6 @@ public class MapController {
     ArrayList<Room> rooms;
     private ArrayList<StackPane> roomStackPanes = new ArrayList<StackPane>();
     private ArrayList<Connection> pathConnection = new ArrayList<Connection>();
-
     public MapController(Pane pane, Rectangle playerIcon) {
         this.playerIcon = playerIcon;
         //player.setPlayerIcon(playerIcon);
@@ -88,6 +87,7 @@ public class MapController {
         //Gets the first room for me and draws and places it.
         Room curRoom = rooms.get(0);
         curRoom.setXY(15,310);
+        curRoom.InitUIElements();
         StackPane newRoom = curRoom.getRoomStackPane();
         newRoom.setLayoutX(curRoom.getX());
         newRoom.setLayoutY(curRoom.getY());
@@ -97,6 +97,7 @@ public class MapController {
         for(int i = 0; i < rooms.size(); i++)
         {
             curRoom = rooms.get(i);
+            curRoom.InitUIElements();
             drawDirectedRoom(curRoom);
         }
         updateConnections();
@@ -111,6 +112,7 @@ public class MapController {
             Room curRoom = exits[i];
             if(curRoom != null)
                 if(curRoom.getDrawn() == false) {
+                    curRoom.InitUIElements();
                     determineRoomDirection(curRoom, room.getX(), room.getY(), i);
                     createPlaceConnection(pane, room, curRoom, i);
                 }
@@ -155,6 +157,7 @@ public class MapController {
             }
             break;
         }
+        pane.getChildren().get(pane.getChildren().size() - 1).toFront();
         roomStackPanes.add(newRoom);
     }
 
@@ -168,7 +171,27 @@ public class MapController {
     {
         if(player.getCurrentLocation().getDiscovered() == true)
         {
+            System.out.println(player.getCurrentLocation().getRoomStackPane());
+            bringPaneToFront(player.getCurrentLocation().getRoomStackPane());
             player.getCurrentLocation().getRoomStackPane().setVisible(true);
+
+        }
+    }
+
+    private void bringPaneToFront(StackPane stackPane)
+    {
+        //pane.getChildren().get(pane.getChildren().size() - 1).toBack();
+
+        System.out.println("Children:");
+        for (int i =0; i< pane.getChildren().size(); i++)
+        {
+            /*if(stackPane.equals(pane.getChildren().get(i)))
+            {
+                System.out.println("found");
+                pane.getChildren().get(i).toFront();
+            }*/
+
+            System.out.println(pane.getChildren().get(i));
         }
     }
 

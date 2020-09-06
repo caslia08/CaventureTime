@@ -3,7 +3,7 @@ import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.Room.Room;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +15,7 @@ public class Player implements Serializable {
 
     private transient double health;
     private transient ArrayList<Item> inventory = new ArrayList<>();
-    private transient int maxCapacity = 3;
+    private transient final int maxCapacity = 3;
     private transient Room currentLocation;
     private transient Boolean picked;
     private transient Boolean dropped;
@@ -171,36 +171,38 @@ public class Player implements Serializable {
 
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
         outputStream.defaultWriteObject();
-
-        if (this.currentLocation == null)
         outputStream.writeDouble(health);
         outputStream.writeObject(inventory);
-        outputStream.writeInt(maxCapacity);
         outputStream.writeObject(currentLocation);
         outputStream.writeBoolean(picked);
         outputStream.writeBoolean(dropped);
-        outputStream.writeObject(playerIcon);
+        //outputStream.writeObject(playerIcon);
         outputStream.writeDouble(x);
         outputStream.writeDouble(y);
 
     }
     private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
-        inputStream.defaultReadObject();
         initValues();
+        inputStream.defaultReadObject();
         this.health = inputStream.readDouble();
         this.inventory = (ArrayList<Item>) inputStream.readObject();
-        this.maxCapacity = inputStream.readInt();
-        this.currentLocation = (Room) inputStream.readObject();
+        Object curObj = inputStream.readObject();
+        if(curObj instanceof Room)
+        {
+            this.currentLocation = (Room) curObj;
+        }
+        else this.currentLocation = null;
+
         this.picked = inputStream.readBoolean();
         this.dropped = inputStream.readBoolean();
-        this.playerIcon = (Rectangle) inputStream.readObject();
+        //this.playerIcon = (Rectangle) inputStream.readObject();
         this.x = inputStream.readDouble();
         this.y = inputStream.readDouble();
     }
     private void initValues(){
         this.health = 100;
         this.inventory = new ArrayList<Item>();
-        this.maxCapacity = 3;
+        this.currentLocation = new Room();
         this.picked = false;
         this.dropped = false;
         this.x = 0;

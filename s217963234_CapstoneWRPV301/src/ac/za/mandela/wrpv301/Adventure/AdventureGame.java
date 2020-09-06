@@ -7,21 +7,20 @@ import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.NPC.Friendly;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Room.Room;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class AdventureGame implements Serializable {
     private static final long serialVersionUID = 1L;
     private transient Player player;
     private transient Adventure adventure;
-    private transient Boolean isGameOver = false;
+    private transient Boolean isGameOver;
     private transient Item curItem;
     private transient Pane mapPane;
     private transient MapController mapController;
@@ -29,6 +28,7 @@ public class AdventureGame implements Serializable {
     public AdventureGame(Pane mapPane, Rectangle playerIcon) {
         this.mapPane = mapPane;
         this.mapController = new MapController(mapPane, playerIcon);
+        this.isGameOver = false;
     }
     private void checkGame() {
         if (player.getHealth() == 0)
@@ -42,6 +42,16 @@ public class AdventureGame implements Serializable {
         adventure = new Adventure();
         Room start = adventure.getStart();
         player.setLocation(start);
+
+        mapController.setPlayer(player);
+        mapController.setRooms(adventure.getWorldRooms());
+        mapController.drawAllRooms();
+    }
+
+    public void reDrawMap(Rectangle playerIcon)
+    {
+        this.mapPane = mapPane;
+        this.mapController = new MapController(mapPane, playerIcon);
         mapController.setPlayer(player);
         mapController.setRooms(adventure.getWorldRooms());
         mapController.drawAllRooms();
@@ -177,20 +187,23 @@ public class AdventureGame implements Serializable {
         outputStream.writeObject(adventure);
         outputStream.writeObject(isGameOver);
         outputStream.writeObject(curItem);
-        outputStream.writeObject(mapPane);
-        outputStream.writeObject(mapController);
+        //outputStream.writeObject(mapPane);
+        //outputStream.writeObject(mapController);
     }
     private void readObject(ObjectInputStream inputStream)  throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         initValues();
         this.player = (Player) inputStream.readObject();
         this.adventure = (Adventure) inputStream.readObject();
-        this.isGameOver = inputStream.readBoolean();
-        this.curItem = (Item) inputStream.readObject();
-        this.mapPane = (Pane) inputStream.readObject();
-        this.mapController = (MapController) inputStream.readObject();
+
+        //TODO look at this and fix
+
+        //this.mapPane = (Pane) inputStream.readObject();
+        //this.mapController = (MapController) inputStream.readObject();
     }
     private void initValues(){
+        this.player = new Player();
+        this.adventure = new Adventure();
         this.isGameOver = false;
     }
 

@@ -1,7 +1,6 @@
 package ac.za.mandela.wrpv301.NPC;
 
 import ac.za.mandela.wrpv301.Items.Item;
-import ac.za.mandela.wrpv301.Player.Player;
 import javafx.scene.image.Image;
 
 public class NonPlayableCharacter {
@@ -14,6 +13,10 @@ public class NonPlayableCharacter {
     public NonPlayableCharacter(String name, Item item) {
         this.name = name;
         this.item = item;
+    }
+
+    public NonPlayableCharacter() {
+
     }
 
     public Image getIcon() {

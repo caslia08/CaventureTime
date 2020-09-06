@@ -13,20 +13,19 @@ import java.io.Serializable;
 
 public class Tool implements Item, Serializable {
 
+    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
     private transient String description;
     private transient String name;
-    private transient Image icon;
     private transient int uses;
     private transient StringProperty toolName = new SimpleStringProperty();
     private transient IntegerProperty toolUses = new SimpleIntegerProperty();
 
-    public Tool(String name) {
+    public Tool(String name, String description) {
         this.name = name;
         this.uses = 1;
         this.toolName.set(name);
         this.toolUses.set(uses);
-        this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
-
+        this.description = description;
     }
 
     @Override
@@ -74,10 +73,6 @@ public class Tool implements Item, Serializable {
         toolUses.set(uses);
     }
 
-    @Override
-    public void setDesc(String desc) {
-        this.description = desc;
-    }
 
     @Override
     public String toString()
@@ -90,7 +85,6 @@ public class Tool implements Item, Serializable {
         outputStream.writeUTF(name);
         outputStream.writeUTF(description);
         outputStream.writeInt(uses);
-        outputStream.writeObject(icon);
         outputStream.writeInt(toolUses.getValue());
         outputStream.writeUTF(toolName.getValue());
     }
@@ -100,15 +94,17 @@ public class Tool implements Item, Serializable {
         this.name = inputStream.readUTF();
         this.description = inputStream.readUTF();
         this.uses = inputStream.readInt();
-        this.icon = (Image) inputStream.readObject();
+        //this.icon = (Image) inputStream.readObject();
         this.toolUses.setValue(inputStream.readInt());
         this.toolName.set(inputStream.readUTF());
     }
     private void initValues(){
+        this.name = "";
+        this.description = "";
         this.uses = 1;
-        this.toolName.set(name);
-        this.toolUses.set(uses);
-        this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
+        this.toolName = new SimpleStringProperty();
+        this.toolUses = new SimpleIntegerProperty();
+        //this.icon = new Image(Tool.class.getResourceAsStream("/Images/tools.png"));
     }
 
 }

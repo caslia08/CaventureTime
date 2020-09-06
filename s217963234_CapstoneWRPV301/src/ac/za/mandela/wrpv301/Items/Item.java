@@ -18,7 +18,6 @@ public interface Item {
 
     public String getName();
     public String getDesc();
-    public void setDesc(String desc);
     public Image getImage();
     public StringProperty nameProperty();
     public int getUses();

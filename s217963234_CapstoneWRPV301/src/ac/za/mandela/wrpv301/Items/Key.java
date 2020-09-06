@@ -6,14 +6,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Key implements Item, Serializable {
-    private transient Image icon;
+    private transient final Image icon = new Image(Tool.class.getResourceAsStream("/Images/key.png"));
     private transient String description;
     private transient String name;
     private transient StringProperty keyName = new SimpleStringProperty();
@@ -21,12 +20,12 @@ public class Key implements Item, Serializable {
     private transient IntegerProperty keyUses = new SimpleIntegerProperty();
     private transient Room room;
 
-    public Key(String name) {
+    public Key(String name, String description) {
         this.name = name;
+        this.description = description;
         this.uses = 1;
         this.keyName.set(name);
         this.keyUses.set(uses);
-        this.icon = new Image(Key.class.getResourceAsStream("/Images/key.png"));
     }
 
     public Room getRoom() {
@@ -45,11 +44,6 @@ public class Key implements Item, Serializable {
     @Override
     public String getDesc() {
         return this.description;
-    }
-
-    @Override
-    public void setDesc(String desc) {
-        this.description = desc;
     }
 
     @Override
@@ -99,7 +93,6 @@ public class Key implements Item, Serializable {
         outputStream.writeUTF(description);
         outputStream.writeInt(uses);
         outputStream.writeObject(room);
-        outputStream.writeObject(icon);
         outputStream.writeInt(keyUses.getValue());
         outputStream.writeUTF(keyName.getValue());
     }
@@ -110,14 +103,14 @@ public class Key implements Item, Serializable {
         this.description = inputStream.readUTF();
         this.uses = inputStream.readInt();
         this.room = (Room) inputStream.readObject();
-        this.icon = (Image) inputStream.readObject();
         this.keyUses.setValue(inputStream.readInt());
         this.keyName.set(inputStream.readUTF());
     }
     private void initValues(){
+        this.name = "";
+        this.description = "";
         this.uses = 1;
-        this.keyName.set(name);
-        this.keyUses.set(uses);
-        this.icon = new Image(Key.class.getResourceAsStream("/Images/key.png"));
+        this.keyName = new SimpleStringProperty();
+        this.keyUses = new SimpleIntegerProperty();
     }
 }
