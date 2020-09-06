@@ -35,14 +35,25 @@ public class Enemy extends NonPlayableCharacter {
         if (weakness.equals(item)) {
             isAlive = false;
             room.setDescription("You defeated the " + this.getName() + "in here. Check your map to see if there is anything worth while in here.");
+            if(this.getItem() != null)
+            {
+                room.setItem(this.getItem());
+                room.setNpc(null);
+                mapController.addItemIcon(room, this.getItem());
+            }
             mapController.removeNpcIcon(room);
             item.useItem();
+            mapController.updateTooltip(room);
             return item.getName() + " worked! You have defeated " + this.getName();
         } else {
             player.takeDamage(this);
-            item.useItem();
-            return "The "+item.getName() + " did not work! You have taken damage! ";
+            return "Oh no the " + item.getName()+ " did not work! You have been hurt!";
+
         }
+    }
+
+    public Boolean getAlive() {
+        return isAlive;
     }
 
     public void initValues(){

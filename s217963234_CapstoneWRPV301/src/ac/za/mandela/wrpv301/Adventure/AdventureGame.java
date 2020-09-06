@@ -3,6 +3,7 @@ package ac.za.mandela.wrpv301.Adventure;
 import ac.za.mandela.wrpv301.Contollers.MapController;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.Items.Key;
+import ac.za.mandela.wrpv301.Items.Weapon;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.NPC.Friendly;
 import ac.za.mandela.wrpv301.Player.Player;
@@ -24,27 +25,40 @@ public class AdventureGame implements Serializable {
     private transient Item curItem;
     private transient Pane mapPane;
     private transient MapController mapController;
+    private transient Boolean enemyEncountered;
+    private transient Room start;
 
     public AdventureGame(Pane mapPane, Rectangle playerIcon) {
         this.mapPane = mapPane;
         this.mapController = new MapController(mapPane, playerIcon);
         this.isGameOver = false;
+        this. enemyEncountered = false;
     }
-    private void checkGame() {
-        if (player.getHealth() == 0)
-            isGameOver = true;
-        if (player.getCurrentLocation().equals(adventure.getStart())) {
-            isGameOver = true;
-        }
+    public void checkGame() {
+        if (player.getHealth() < 0)
+            setGameOver(true);
     }
+
     public void startGame() {
         player = new Player();
         adventure = new Adventure();
-        Room start = adventure.getStart();
+        this.start = adventure.getStart();
         player.setLocation(start);
         mapController.setPlayer(player);
         mapController.setRooms(adventure.getWorldRooms());
         mapController.drawAllRooms();
+    }
+
+    public Room getStart() {
+        return start;
+    }
+
+    public Boolean getGameOver() {
+        return isGameOver;
+    }
+
+    public void setGameOver(Boolean gameOver) {
+        isGameOver = gameOver;
     }
 
     public void setMapPane(Pane mapPane) {
@@ -75,6 +89,26 @@ public class AdventureGame implements Serializable {
         String command = data[0].toLowerCase();
         Room curRoom = player.getCurrentLocation();
         int direction = getDirection(data[0].toLowerCase());
+
+        System.out.println(enemyEncountered);
+        if (player.getCurrentLocation().getNpc() instanceof Enemy && enemyEncountered == true)
+        {
+            Enemy curEnemy = (Enemy) player.getCurrentLocation().getNpc();
+            if (curEnemy.getAlive() == true) {
+                if (data.length < 2) {
+                    player.takeDamage(curEnemy);
+                    return "Oh no you took damage do something or you will perish";
+                } else {
+                    String itemName = data[1];
+                    Item item = player.getItem(itemName);
+                    return curEnemy.takeDamage(item, player, curRoom, mapController);
+                }
+            }
+            else
+            {
+                enemyEncountered =false;
+            }
+        }
         if (direction == Integer.MIN_VALUE && data.length > 1) {
             switch (command) {
                 case "drop": {
@@ -134,6 +168,8 @@ public class AdventureGame implements Serializable {
             } else {
                 player.move(direction);
                 mapController.move(direction);
+                if(player.getCurrentLocation().getNpc() instanceof Enemy)
+                    this.enemyEncountered = true;
                 //Room nextRoom = player.getCurrentLocation().getRoom(direction);
                 //player.setLocation(nextRoom);
                 return player.viewLocation();
@@ -188,6 +224,7 @@ public class AdventureGame implements Serializable {
         outputStream.defaultWriteObject();
         outputStream.writeObject(player);
         outputStream.writeObject(adventure);
+        outputStream.writeBoolean(enemyEncountered);
         outputStream.writeObject(isGameOver);
         outputStream.writeObject(curItem);
     }
@@ -196,10 +233,9 @@ public class AdventureGame implements Serializable {
         initValues();
         this.player = (Player) inputStream.readObject();
         this.adventure = (Adventure) inputStream.readObject();
-
+        this.enemyEncountered = inputStream.readBoolean();
         //TODO look at this and fix
-        //this.mapPane = (Pane) inputStream.readObject();
-        //this.mapController = (MapController) inputStream.readObject();
+
     }
     private void initValues(){
         this.player = new Player();

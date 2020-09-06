@@ -51,9 +51,9 @@
                      <children>
                         <VBox layoutX="5.0" layoutY="5.0" prefHeight="652.0" prefWidth="643.0">
                            <children>
-                              <TextArea fx:id="txtMain" prefHeight="522.0" prefWidth="664.0" text="Welcome to My Adventure Game! Type &quot;help&quot; for more information on how to play the game or type &quot;start&quot; to begin our adventure! " wrapText="true" VBox.vgrow="ALWAYS">
+                              <TextArea fx:id="txtMain" editable="false" prefHeight="522.0" prefWidth="664.0" text="Welcome to My Adventure Game! Type &quot;help&quot; for more information on how to play the game or type &quot;start&quot; to begin our adventure! " wrapText="true" VBox.vgrow="ALWAYS">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="27.0" />
                                  </font></TextArea>
                               <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="460.0">
                                  <children>

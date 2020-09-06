@@ -187,21 +187,6 @@ public class MapController {
         }
     }
 
-    private int getIconIndex()
-    {
-        int i = 0;
-        for (Node component : pane.getChildren()) {
-            System.out.println(component);
-            if (component instanceof Rectangle) {
-                if(playerIcon.equals((Rectangle)component))
-                    return i;
-                //if the component is a container, scan its children
-            }
-            i++;
-        }
-        return i;
-    }
-
     public void refreshRooms()
     {
         for (Room room: rooms)
@@ -335,7 +320,6 @@ public class MapController {
 
     }
     public void updateTooltip(Room room){
-
             String tooltipText = room.getDescription();
             if(room.getItem() == null)
             {
@@ -355,9 +339,7 @@ public class MapController {
                 tooltipText+= "\nNPC: " + room.getNpc().getName();
 
             }
-
             room.getTooltip().setText(tooltipText);
-
     }
 
 

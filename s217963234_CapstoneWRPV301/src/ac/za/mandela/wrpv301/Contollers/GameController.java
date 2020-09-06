@@ -1,7 +1,5 @@
 package ac.za.mandela.wrpv301.Contollers;
 
-
-//TODO FIx scrolling
 import ac.za.mandela.wrpv301.Adventure.AdventureGame;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.Player.Player;
@@ -10,7 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
@@ -22,10 +23,10 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
-
-import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.util.Optional;
@@ -49,10 +50,14 @@ public class GameController implements Initializable {
     public AnchorPane mainAnchorPane;
     public VBox vboxContainer;
     public Rectangle playerIcon;
-    public Pane panePopup;
+
+
     public ImageView itemImageView;
     public Label lblItemName;
     public Label lblDescription;
+
+
+    public Boolean restarted;
 
     public Stage stage;
 
@@ -74,6 +79,7 @@ public class GameController implements Initializable {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         vboxContainer.setBackground(new Background(mainBI));
+        this.restarted = false;
 
 
     }
@@ -94,6 +100,7 @@ public class GameController implements Initializable {
                 player = newGame.getPlayer();
                 txtMain.setText(newGame.look());
                 setUpInventory();
+                updateHealth();
                 mapPane.getChildren().clear();
                 newGame.setMapPane(mapPane);
                 newGame.reDrawMap(playerIcon);
@@ -122,7 +129,8 @@ public class GameController implements Initializable {
 
     @FXML
     void controlsClicked(ActionEvent event) {
-        //New window with controls
+        Stage controlStage = controlStage(stage);
+        controlStage.show();
     }
 
     public void onEnter(ActionEvent actionEvent){
@@ -145,6 +153,12 @@ public class GameController implements Initializable {
                 newGame.startGame();
                 player = newGame.getPlayer();
                 setUpInventory();
+                if(restarted) {
+                    mapPane.getChildren().clear();
+                    newGame.setMapPane(mapPane);
+                    player.setLocation(newGame.getStart());
+                    newGame.reDrawMap(playerIcon);
+                }
                 txtMain.setText(newGame.look());
             }
             else {
@@ -158,9 +172,7 @@ public class GameController implements Initializable {
             txtMain.setText(newGame.look());
            // text = text + "\n\n" + newGame.processCommand(txtInput.getText());
             text = newGame.processCommand(txtInput.getText());
-
             txtMain.setText(text);
-
         }
         else {
             text = text + "\n\n" + "Please start a game before you tell me what to do\n ̿̿ ̿̿ ̿̿ ̿'̿'\\̵͇̿̿\\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿ ";
@@ -170,7 +182,21 @@ public class GameController implements Initializable {
         txtInput.clear();
         updateHealth();
         updateInventory();
+        checkGame();
 
+    }
+
+    private void checkGame(){
+        newGame.checkGame();
+
+        if(newGame.getGameOver() == true)
+        {
+            String text = "YOU HAVE DIED!!!! :( \nType \\\"start\\\" to begin a new adventure\" \nTry not to die this time ;)";
+            txtMain.setText(text);
+            player= new Player();
+            newGame = null;
+            restarted = true;
+        }
     }
 
     private void updateHealth()
@@ -190,12 +216,98 @@ public class GameController implements Initializable {
         //TODO add pop up for visual
         lbxItems.setOnMouseClicked(event -> {
             Item curItem = lbxItems.getSelectionModel().getSelectedItem();
-            initData(curItem);
-            stage = (Stage) panePopup.getScene().getWindow();
-            stage.show();
+            Stage itemStage = itemStage(stage, curItem);
+            itemStage.show();
         });
     }
 
+    private Stage itemStage(Stage owner, Item item)
+    {
+        initData(item);
+
+        Stage stage = new Stage();
+        Pane root = new Pane();
+        root.setStyle("-fx-background-color: #91b59b");
+        HBox hBoxMainContainer = new HBox();
+        VBox imageInfo = new VBox();
+        VBox itemInfo = new VBox();
+
+        Label lblHeading = new Label("Item Description");
+        lblHeading.setStyle("-fx-font-size: 24px");
+        itemImageView.setFitHeight(250);
+        itemImageView.setFitWidth(250);
+        itemImageView.setPreserveRatio(true);
+        lblItemName.setStyle("-fx-font-size: 30px");
+
+        itemInfo.setPrefWidth(250);
+        imageInfo.getChildren().addAll(itemImageView, lblItemName);
+        imageInfo.setAlignment(Pos.CENTER);
+        itemInfo.getChildren().addAll(lblHeading, lblDescription);
+        itemInfo.setAlignment(Pos.CENTER);
+
+
+        hBoxMainContainer.getChildren().addAll(imageInfo, itemInfo);
+        root.getChildren().add(hBoxMainContainer);
+
+        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(owner);
+        stage.setTitle("Item Descriptions ");
+        stage.setWidth(800);
+        stage.setHeight(350);
+        return stage;
+    }
+
+    private Stage controlStage(Stage owner)
+    {
+        Stage stage = new Stage();
+        Pane root = new Pane();
+        root.setStyle("-fx-background-color: #91b59b");
+        HBox hBoxMainContainer = new HBox();
+        Pane controls = new Pane();
+        Pane info = new Pane();
+
+        Label lblcontrols = new Label(" grab <item name>" +
+                "\n use <item name>" +
+                "\n drop <item name>" +
+                "\n inspect <item name>" +
+                "\n look " +
+                "\n north " +
+                "\n south " +
+                "\n east " +
+                "\n west");
+        controls.getChildren().add(lblcontrols);
+
+
+        Label lblInfo = new Label("grabs and item and adds it to inventory" +
+                "\n uses item, includes using keys, weapons and tools" +
+                "\n drop item if necessary" +
+                "\n let you look at the item closer and get the description" +
+                "\n displays current room description " +
+                "\n moves player north " +
+                "\n moves player south " +
+                "\n moves player east " +
+                "\n moves player west");
+
+        lblInfo.setStyle("-fx-font-size: 20px");
+        lblcontrols.setStyle("-fx-font-size: 20px");
+
+        info.getChildren().addAll(lblInfo);
+        hBoxMainContainer.setAlignment(Pos.CENTER);
+        hBoxMainContainer.getChildren().addAll(lblcontrols, info);
+        root.getChildren().add(hBoxMainContainer);
+        stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(owner);
+        stage.setTitle("Game Controls");
+        stage.setWidth(900);
+        stage.setHeight(350);
+        return stage;
+    }
     public void initData(Item item)
     {
         lblItemName = new Label(item.getName());
@@ -228,6 +340,8 @@ public class GameController implements Initializable {
             player.getInventory().remove(itemTemp);
         }
     }
+
+
 
 
 

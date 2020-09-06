@@ -19,8 +19,10 @@ public class Friendly extends NonPlayableCharacter {
         if (itemNeeded.equals(item)) {
             isActive = false;
             room.setItem(this.getItem());
+            room.setNpc(null);
             mapController.addItemIcon(room, this.getItem());
             mapController.removeNpcIcon(room);
+            mapController.updateTooltip(room);
             item.useItem();
             room.setDescription("The "+ this.getName() + " seems to have left. Check on the map if anything was left behind");
             return this.getPositiveResult();

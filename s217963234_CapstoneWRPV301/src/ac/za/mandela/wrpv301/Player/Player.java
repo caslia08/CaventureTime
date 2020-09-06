@@ -20,7 +20,6 @@ public class Player implements Serializable {
     private transient Room currentLocation;
     private transient Boolean picked;
     private transient Boolean dropped;
-    private transient Rectangle playerIcon;
     private transient double x;
     private transient double y;
 
@@ -28,22 +27,6 @@ public class Player implements Serializable {
         this.health = 100;
         picked  = false;
         dropped = false;
-    }
-
-    public Rectangle getPlayerIcon() {
-        return playerIcon;
-    }
-
-    public void setPlayerIcon(Rectangle playerIcon) {
-        this.playerIcon = playerIcon;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
     }
 
     public void setXY(double x, double y) {

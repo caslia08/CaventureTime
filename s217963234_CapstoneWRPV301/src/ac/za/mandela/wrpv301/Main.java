@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
-        primaryStage.setTitle("Jungled");
+        primaryStage.setTitle("Forest Forage");
         primaryStage.setScene(new Scene(root, 1200, 900));
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/jungle.png")));
         primaryStage.show();
