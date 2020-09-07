@@ -179,7 +179,7 @@ public class GameController implements Initializable {
 
         if(newGame!=null) {
             checkGame();
-            checkWin();
+            //checkWin();
         }
     }
 
@@ -189,6 +189,15 @@ public class GameController implements Initializable {
         if(newGame.getGameOver() == true)
         {
             String text = "YOU HAVE DIED!!!! :( \nType \\\"start\\\" to begin a new adventure\" \nTry not to die this time ;)";
+            txtMain.setText(text);
+            player= new Player();
+            newGame = null;
+            restarted = true;
+        }
+        else if(newGame.checkWin())
+        {
+            String text = txtMain.getText();
+            text += "\nYOU HAVE DEFEATED THE SKELETON!!!! :( \nType \"start\" to begin a new adventure! ;)";
             txtMain.setText(text);
             player= new Player();
             newGame = null;

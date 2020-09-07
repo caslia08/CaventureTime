@@ -114,7 +114,7 @@ public class AdventureGame implements Serializable {
                     player.takeDamage(curEnemy);
                     return "Oh no you took damage do something or you will perish";
                 } else {
-                    String itemName = data[1];
+                    String itemName = data[1].toLowerCase();
                     Item item = player.getItem(itemName);
                     return curEnemy.takeDamage(item, player, curRoom, mapController);
                 }
@@ -144,7 +144,7 @@ public class AdventureGame implements Serializable {
                         return "There are no items in this room to collect";
                 }
                 case "use": {
-                    String itemName = data[1];
+                    String itemName = data[1].toLowerCase();
                     Item item = player.getItem(itemName);
                     if (item != null) {
                         if (curRoom.containsNPC()) {

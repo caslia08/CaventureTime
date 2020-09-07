@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4d23df80-f867-464f-b535-ea2938c0d3d7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/AdventureGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Adventure/AdventureGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/Contollers/GameController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/s217963234_CapstoneWRPV301/ac/za/mandela/wrpv301/NPC/Enemy.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/AdventureGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Adventure/AdventureGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/Contollers/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/za/mandela/wrpv301/NPC/Enemy.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +117,7 @@
       <workItem from="1599377967861" duration="6914000" />
       <workItem from="1599385021010" duration="32312000" />
       <workItem from="1599433518849" duration="8785000" />
-      <workItem from="1599470353098" duration="2286000" />
+      <workItem from="1599470353098" duration="3110000" />
     </task>
     <servers />
   </component>
