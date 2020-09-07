@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class AdventureGame implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -34,10 +35,6 @@ public class AdventureGame implements Serializable {
         this.isGameOver = false;
         this. enemyEncountered = false;
     }
-    public void checkGame() {
-        if (player.getHealth() < 0)
-            setGameOver(true);
-    }
 
     public void startGame() {
         player = new Player();
@@ -49,10 +46,6 @@ public class AdventureGame implements Serializable {
         mapController.drawAllRooms();
     }
 
-    public Room getStart() {
-        return start;
-    }
-
     public Boolean getGameOver() {
         return isGameOver;
     }
@@ -61,6 +54,28 @@ public class AdventureGame implements Serializable {
         isGameOver = gameOver;
     }
 
+    public void checkGame() {
+        if (player.getHealth() < 0)
+            setGameOver(true);
+    }
+
+    public Boolean checkWin() {
+
+        ArrayList<Room> rooms = adventure.getWorldRooms();
+        Room lastRoom = rooms.get(rooms.size()-1);
+
+        if(player.getCurrentLocation().equals(lastRoom))
+        {
+            if(lastRoom.getNpc() instanceof Enemy)
+            {
+                Enemy curEnemy = (Enemy) lastRoom.getNpc();
+                if (curEnemy.getAlive() == false)
+                    return true;
+            }
+        }
+
+        return false;
+    }
     public void setMapPane(Pane mapPane) {
         this.mapPane = mapPane;
     }
