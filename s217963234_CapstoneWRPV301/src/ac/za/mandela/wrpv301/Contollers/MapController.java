@@ -7,6 +7,7 @@ import ac.za.mandela.wrpv301.Room.Connection;
 import ac.za.mandela.wrpv301.Room.Room;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -39,6 +40,8 @@ public class MapController {
         playerIcon.setWidth(30);
         playerIcon.setHeight(30);
         playerIcon.setFill(new ImagePattern(icon));
+        playerIcon.setLayoutX(35);
+        playerIcon.setLayoutY(332);
         x= playerIcon.getLayoutX();
         y=playerIcon.getLayoutY();
     }
@@ -53,7 +56,6 @@ public class MapController {
 
     public void move(int direction) {
         this.getDir(direction);
-
         this.group = new Group();
         group.getChildren().addAll(playerIcon);
         pane.getChildren().add(playerIcon);

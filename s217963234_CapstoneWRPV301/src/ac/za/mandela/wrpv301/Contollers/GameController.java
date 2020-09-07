@@ -145,6 +145,12 @@ public class GameController implements Initializable {
             if(this.newGame == null) {
                 if(restarted) {
                     reset();
+                    this.newGame = new AdventureGame(mapPane, playerIcon);
+                    mapPane.getChildren().add(playerIcon);
+                    newGame.startGame();
+                    player = newGame.getPlayer();
+                    setUpInventory();
+                    updateHealth();
 
                 }else {
                     this.newGame = new AdventureGame(mapPane, playerIcon);
@@ -164,7 +170,6 @@ public class GameController implements Initializable {
             txtMain.setText(text);
         } else if(newGame != null) {
             txtMain.setText(newGame.look());
-           // text = text + "\n\n" + newGame.processCommand(txtInput.getText());
             text = newGame.processCommand(txtInput.getText());
             txtMain.setText(text);
         }
@@ -179,7 +184,6 @@ public class GameController implements Initializable {
 
         if(newGame!=null) {
             checkGame();
-            //checkWin();
         }
     }
 
@@ -195,19 +199,6 @@ public class GameController implements Initializable {
             restarted = true;
         }
         else if(newGame.checkWin())
-        {
-            String text = txtMain.getText();
-            text += "\nYOU HAVE DEFEATED THE SKELETON!!!! :( \nType \"start\" to begin a new adventure! ;)";
-            txtMain.setText(text);
-            player= new Player();
-            newGame = null;
-            restarted = true;
-        }
-    }
-
-    private void checkWin()
-    {
-        if(newGame.checkWin())
         {
             String text = txtMain.getText();
             text += "\nYOU HAVE DEFEATED THE SKELETON!!!! :( \nType \"start\" to begin a new adventure! ;)";
