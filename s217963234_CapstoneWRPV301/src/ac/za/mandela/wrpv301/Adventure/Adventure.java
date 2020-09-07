@@ -93,9 +93,12 @@ public class Adventure implements Serializable {
 
         Room room6 = new Room(null, sunRay, "Upon entering this room there seems to be a gift that was left behind from the wedding reception. " +
                 "It has the label \"for my arch nemesis – curse you for stealing the love of my life\"… hopefully someone broke the news to him or her", true);
+//TODO Add a key to room 6
                 Room room7 = new Room(troll, null, "You enter the room and see a macho man of a troll - chest puffed out ready to attack, " +
                         "this must be the groom. He looks like he is ready to attack! ..", false);
 
+
+//Todo Add treasure to this room once the enemy is defeated.
         Room room8 = new Room(boneBoy, null, "Upon entering the room you see a skeleton in the corner that suddenly comes to life only to mock your life's " +
                 "choices and question your own sanity and why you are in fact wondering through a system of forest all alone fighting sheep and stealing wedding gifts" +
                 "he reveals that he teleported you here and wiped you memory so that he may take your fleshy body to use as his own .. He begins to start hitting you with inappropriate " +

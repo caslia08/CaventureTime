@@ -3,15 +3,19 @@ package ac.za.mandela.wrpv301.Adventure;
 import ac.za.mandela.wrpv301.Contollers.MapController;
 import ac.za.mandela.wrpv301.Items.Item;
 import ac.za.mandela.wrpv301.Items.Key;
+import ac.za.mandela.wrpv301.Items.Weapon;
 import ac.za.mandela.wrpv301.NPC.Enemy;
 import ac.za.mandela.wrpv301.NPC.Friendly;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Room.Room;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class AdventureGame implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,21 +49,8 @@ public class AdventureGame implements Serializable {
         mapController.drawAllRooms();
     }
 
-
-    public Boolean checkWin()
-    {
-        ArrayList<Room> allRooms = adventure.getWorldRooms();
-        Room lastRoom = allRooms.get(allRooms.size()-1);
-        if(player.getCurrentLocation().equals(lastRoom))
-        {
-            if(lastRoom.getNpc() instanceof Enemy) {
-                Enemy curEnemy = (Enemy) lastRoom.getNpc();
-                if(curEnemy.getAlive() == false)
-                    return true;
-            }
-        }
-
-        return false;
+    public Room getStart() {
+        return start;
     }
 
     public Boolean getGameOver() {
@@ -82,7 +73,6 @@ public class AdventureGame implements Serializable {
         mapController.drawAllRooms();
         mapController.refreshRooms();
     }
-
     public String look() {
         return player.viewLocation();
     }
@@ -209,6 +199,9 @@ public class AdventureGame implements Serializable {
         return direction;
     }
 
+    public double getHealth() {
+        return player.getHealth() / 100.00;
+    }
 
     public Player getPlayer() {
         return player;

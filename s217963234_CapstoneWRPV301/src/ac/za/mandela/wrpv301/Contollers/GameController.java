@@ -145,19 +145,13 @@ public class GameController implements Initializable {
             if(this.newGame == null) {
                 if(restarted) {
                     reset();
+
+                }else {
                     this.newGame = new AdventureGame(mapPane, playerIcon);
                     newGame.startGame();
                     player = newGame.getPlayer();
-                    updateHealth();
                     setUpInventory();
-                    txtMain.setText(newGame.look());
-
                 }
-
-                this.newGame = new AdventureGame(mapPane, playerIcon);
-                newGame.startGame();
-                player = newGame.getPlayer();
-                setUpInventory();
 
                 txtMain.setText(newGame.look());
             }
@@ -180,13 +174,9 @@ public class GameController implements Initializable {
         }
         txtMain.setScrollTop(Double.MAX_VALUE);
         txtInput.clear();
-        if(newGame != null) {
-            System.out.println("jhfdhjfds");
-            updateHealth();
-            updateInventory();
-            checkGame();
-            checkWin();
-        }
+        updateHealth();
+        updateInventory();
+        checkGame();
 
     }
 
@@ -202,20 +192,6 @@ public class GameController implements Initializable {
             restarted = true;
         }
     }
-
-    private void checkWin(){
-        newGame.checkWin();
-
-        if(newGame.checkWin() == true)
-        {
-            String text = txtMain.getText() + "\nYOU DEFEATED THE SKELETON!!!! :) \n Type \"start\" to begin a new adventure\" \nTry not to die this time ;)";
-            txtMain.setText(text);
-            player= new Player();
-            newGame = null;
-            restarted = true;
-        }
-    }
-
 
     private void updateHealth()
     {
@@ -238,6 +214,14 @@ public class GameController implements Initializable {
         });
     }
 
+    private void restart()
+    {
+            mapPane.getChildren().clear();
+            this.newGame = new AdventureGame(mapPane, playerIcon);
+            newGame.startGame();
+            player = newGame.getPlayer();
+            setUpInventory();
+    }
 
     private void reset()
     {

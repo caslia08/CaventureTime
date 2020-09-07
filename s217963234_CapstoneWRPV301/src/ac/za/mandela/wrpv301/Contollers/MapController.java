@@ -5,8 +5,10 @@ import ac.za.mandela.wrpv301.NPC.NonPlayableCharacter;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Room.Connection;
 import ac.za.mandela.wrpv301.Room.Room;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -14,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class MapController {
@@ -22,6 +25,7 @@ public class MapController {
     public Pane pane;
     public Rectangle playerIcon;
     public Group group;
+    TranslateTransition tl;
     ArrayList<Room> rooms;
     private ArrayList<StackPane> roomStackPanes = new ArrayList<StackPane>();
     private ArrayList<Connection> pathConnection = new ArrayList<Connection>();
@@ -30,18 +34,15 @@ public class MapController {
 
     public MapController(Pane pane, Rectangle playerIcon) {
         this.playerIcon = playerIcon;
+        //player.setPlayerIcon(playerIcon);
         playerIcon.setVisible(true);
         this.pane = pane;
         Image icon = new Image(MapController.class.getResourceAsStream("/Images/female.png"));
         playerIcon.setWidth(30);
         playerIcon.setHeight(30);
         playerIcon.setFill(new ImagePattern(icon));
-        playerIcon.setLayoutX(35);
-        playerIcon.setLayoutY(332);
         x= playerIcon.getLayoutX();
         y=playerIcon.getLayoutY();
-        pane.getChildren().add(playerIcon);
-        pane.getChildren().get(pane.getChildren().size() - 1).toFront();
     }
 
     public void setPlayer(Player player) {
@@ -53,48 +54,57 @@ public class MapController {
     }
 
     public void move(int direction) {
-        this.getDir(direction);
+        this.tl = new TranslateTransition();
+        this.getDir(direction, tl);
+        tl.setDuration(Duration.seconds(1));
+        tl.setNode(playerIcon);
+        tl.playFromStart();
         this.group = new Group();
         group.getChildren().addAll(playerIcon);
         pane.getChildren().add(playerIcon);
         pane.getChildren().get(pane.getChildren().size() - 1).toFront();
+        player.setXY(x, y);
         updateMap();
     }
 
-    private void getDir(int dir) {
+    private void getDir(int dir, TranslateTransition translateTransition) {
         switch (dir) {
             case 0: //NORTH
             {
-                y -= 140;
+                //translateTransition.setByY(-140);
+                //translateTransition.setByX(0);
+                y-=140;
+
             }
             break;
             case 1://SOUTH
             {
-                y += 140;
+                //translateTransition.setByY(140);
+                //translateTransition.setByX(0);
+                y+=140;
+
             }
             break;
             case 2://EAST
             {
-                x += 180;
+                //translateTransition.setByY(0);
+                //translateTransition.setByX(180);
+                x+=180;
+
             }
             break;
             case 3://WEST
             {
-                x -= 180;
+                //translateTransition.setByY(0);
+                //translateTransition.setByX(-180);
+                x-=180;
             }
             break;
         }
         player.setXY(x, y);
-
-        System.out.println("Player");
-        System.out.println(player.getX());
-        System.out.println(player.getY());
-
-        System.out.println("Just XY ");
-        System.out.println(x);
-        System.out.println(y);
         playerIcon.setLayoutX(x);
         playerIcon.setLayoutY(y);
+        //return translateTransition;
     }
 
     public void drawAllRooms() {
@@ -195,12 +205,12 @@ public class MapController {
                 }
             }
         }
-        System.out.println(player.getX());
-        System.out.println(player.getY());
+        StackPane curStackRoom = player.getCurrentLocation().getRoomStackPane();
         playerIcon.setLayoutX(player.getX());
         playerIcon.setLayoutY(player.getY());
-        x=player.getX();
-        y=player.getY();
+        System.out.println(player.getX());
+        System.out.println(player.getY());
+
         pane.getChildren().add(playerIcon);
     }
 
