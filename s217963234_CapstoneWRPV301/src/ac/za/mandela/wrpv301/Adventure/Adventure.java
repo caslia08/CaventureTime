@@ -67,7 +67,7 @@ public class Adventure implements Serializable {
         goodTroll.setNegativeResult("The troll seems really disappointed... oh well poor thing.");
 
         this.start = new Room(null, shears, "You are standing outside and have no recollective memory of where you are or how you got here" +
-                "\nYou see an entrance of some sort into a forest right in front of you.", false);
+                "\nYou see an entrance of some sort into a jungle right in front of you.", false);
 
 
         Room room1 = new Room(null, key, "You approach a small clearing with nothing but a lone key lying in close proximity – " +
@@ -78,12 +78,10 @@ public class Adventure implements Serializable {
         Room room2 = new Room(sheep, torch, "As you enter this room you immediately see a sheep upright upon 2 legs looking menacingly at you! What will you do? " +
                 "surely you have some kind of weapon... \n to the south you see a door that could get you out of here... but the sheep won’t let you leave", true);
 
-//remove pickaxe
         Room room3 = new Room(witch, null, "As the passage way comes to an end, you see an entrancingly horrendous " +
                 "looking witch that reassures you that she is in fact a \"good\" witch she asks if she you have a torch she could borrow to light her cigarette whilst she laments her life's choices including a few choice hexes that were made. ( ಠ ͜ʖಠ)..." + " " +
                 "looks like you can go back the way you came or proceed north", false);
 
-//Use Pick-Axe
         Room room4 = new Room(null, null, "The clearing you stumbled upon seems to baren and the only way to proceed seems to be blocked by a pile of rocks", false);
 
         Room room5 = new Room(goodTroll, mirror, "Upon entering a beautifully decorated clearing you see that in the corner there appears to be a troll bride" +
