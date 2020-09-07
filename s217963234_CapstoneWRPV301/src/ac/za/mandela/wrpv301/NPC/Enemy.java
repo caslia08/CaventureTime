@@ -38,9 +38,9 @@ public class Enemy extends NonPlayableCharacter {
             if(this.getItem() != null)
             {
                 room.setItem(this.getItem());
-                room.setNpc(null);
                 mapController.addItemIcon(room, this.getItem());
             }
+            room.setNpc(null);
             mapController.removeNpcIcon(room);
             item.useItem();
             mapController.updateTooltip(room);

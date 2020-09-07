@@ -253,6 +253,7 @@ public class MapController {
 
         NonPlayableCharacter npc = room.getNpc();
         if(npc != null ) {
+            System.out.println(npc.getName());
             tooltipText+= "\nNPC: " + npc.getName();
             Image icon = npc.getIcon();
             Rectangle npcRect = new Rectangle(35,35);
