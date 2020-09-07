@@ -35,6 +35,14 @@ public class Player implements Serializable {
 
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
     public ArrayList<Item> getInventory() {
         return inventory;
     }
@@ -61,6 +69,7 @@ public class Player implements Serializable {
             this.getCurrentLocation().setItem(null);
             picked = true;
             mapController.removeItemIcon(this.getCurrentLocation());
+            System.out.println(this.currentLocation.getDescription());
             mapController.updateTooltip(this.getCurrentLocation());
             return "You have successfully picked up: " + newItem.getName();
         } else {
@@ -68,29 +77,6 @@ public class Player implements Serializable {
         }
     }
 
-   /* public void updateTooltip()
-    {
-        String tooltipText = "";
-        if(this.currentLocation.getItem() == null)
-        {
-            tooltipText+= "Items: None ";
-        }
-        else
-        {
-            tooltipText+= "Items: " + this.currentLocation.getItem().getName();
-
-        }
-        if(this.currentLocation.getNpc() == null)
-        {
-            tooltipText+= "\nNPC: None ";
-        }
-        else
-        {
-            tooltipText+= "\nNPC: " + this.currentLocation.getNpc().getName();
-
-        }
-         this.currentLocation.setRoomInfo(tooltipText);
-    }*/
 
     public String dropItem(int index) {
         Item curItem = inventory.get(index);

@@ -38,13 +38,14 @@ public class Adventure implements Serializable {
         Enemy boneBoy = new Enemy("Strange Talking Skeleton", null,"/Images/skeleton.png", mallets, 15);
 
         sheep.setNegativeResult("Oof that was not the right thing to do. You may notice a decrease in your health");
-        sheep.setPositiveResult("Without his wool he is has been made");
+        sheep.setPositiveResult("Without his wool he is has been made. You are now safe to leave! ");
 
-        troll.setNegativeResult("Oof");
-        troll.setPositiveResult("Yea boi");
+        troll.setNegativeResult("He slams you on the head. You may perish if you do not attack!");
+        troll.setPositiveResult("The sun-ray has turned the troll to stone - guess that's one way of getting rock hard abs. You are now free to move on");
 
-        boneBoy.setNegativeResult("Oof");
-        boneBoy.setPositiveResult("Yea boi");
+        boneBoy.setNegativeResult("You take a blow after being battered in the ribs with ribs. Better act fast - if you can!");
+        boneBoy.setPositiveResult("By playing the most annoying pop songs of recent times the reverberations have manage to shatter the bones of your " +
+                "captor. It only his chattering skull that remains intact.");
 
         Tool torch = new Tool("Torch", "The red glowing torch can serve many purposes sometimes the most useful will be the most unusual");
         Tool mirror = new Tool("Mirror", "Magic Mirror makes he/she who possesses this feel like a million beautiful bucks");
@@ -57,48 +58,52 @@ public class Adventure implements Serializable {
         Friendly witch = new Friendly("Friendly wicked witch", pickAxe, "/Images/witch.png", torch);
         Friendly goodTroll = new Friendly("Forlorn Troll", key1, "/Images/sad.png", mirror);
 
-        witch.setPositiveResult("The witch thanks you as she leaves the room to light up. She has left something behind for you");
+        witch.setPositiveResult("The witch thanks you as she leaves the room to light up as she says the forest is a smoke free zone. " +
+                "She has left something behind for you, that will help you in your journey.");
         witch.setNegativeResult("Witch, what a cruel world guess you will struggle to keep moving.");
 
-        goodTroll.setPositiveResult("Upon receiving the mirror she is ecstatic and decided it time to start swiping right again! ");
-        goodTroll.setNegativeResult("The troll seems really disappointed... oh well poor thing");
+        goodTroll.setPositiveResult("Upon receiving the mirror and looking at her reflection " +
+                "she is ecstatic and decides that it is time to start swiping right again! ");
+        goodTroll.setNegativeResult("The troll seems really disappointed... oh well poor thing.");
 
-        this.start = new Room(null, shears, "You are standing outside along a stream, you see what looks like shears near you - maybe you should grab that?" +
-                "\nYou see an entrance to a cave in front of you.", false);
-
-
-        //TODO change desc
-        Room room1 = new Room(null, key, "You are in a very poorly lit but you see a shingy gold key lying on the floor maybe it will" +
-                " prove to be use full", false);
+        this.start = new Room(null, shears, "You are standing outside and have no recollective memory of where you are or how you got here" +
+                "\nYou see an entrance of some sort into a forest right in front of you.", false);
 
 
-        Room room2 = new Room(sheep, torch, "As you enter this cavern you immediately see a sheep upright upon 2 legs looking menacingly at you! What will you do? " +
-                "surely you have some kind of weapon... \n to the the north you see a door that could get you out of here...", true);
+        Room room1 = new Room(null, key, "You approach a small clearing with nothing but a lone key lying in close proximity – " +
+                "you see a random door standing straight ahead in the clearing, " +
+                " that key might prove to be use full. You also see a passage way in the trees to your east.", false);
 
-        //remove pickaxe
-        Room room3 = new Room(witch, null, "As you enter the room you see an entrancingly horrendous looking witch that reassures you that she is in fact a \"good\" witch " +
-                "she asks if she you have a torch she could borrow to light her cigarette whilst she laments her life's choices including a few choice hexes that were made. ( ಠ ͜ʖಠ)..." + " " +
+
+        Room room2 = new Room(sheep, torch, "As you enter this room you immediately see a sheep upright upon 2 legs looking menacingly at you! What will you do? " +
+                "surely you have some kind of weapon... \n to the south you see a door that could get you out of here... but the sheep won’t let you leave", true);
+
+//remove pickaxe
+        Room room3 = new Room(witch, null, "As the passage way comes to an end, you see an entrancingly horrendous " +
+                "looking witch that reassures you that she is in fact a \"good\" witch she asks if she you have a torch she could borrow to light her cigarette whilst she laments her life's choices including a few choice hexes that were made. ( ಠ ͜ʖಠ)..." + " " +
                 "looks like you can go back the way you came or proceed north", false);
 
-        //Use Pick-Axe
-        Room room4 = new Room(null, null, "The room you are now in seems desolate and reminiscent of nothing good in the world.. you see a pile of rocks " +
-                "blocking what seems to be another exit to the east and a dark shadowy entrance to the south of you...", false);
+//Use Pick-Axe
+        Room room4 = new Room(null, null, "The clearing you stumbled upon seems to baren and the only way to proceed seems to be blocked by a pile of rocks", false);
 
-        Room room5 = new Room(goodTroll, mirror, "Upon entering the dark room you see that in the corner there appears to be a troll bride" +
-                "she swiftly tells you that she is very sad due to the fact that she was ditched at the alter by her troll husband to be and warns that he's" +
-                        "good for nothing buns of rock might still be dwelling within this cave system. She points out one of the gifts left by a guest and suggests that it might be useful to you", true);
+        Room room5 = new Room(goodTroll, mirror, "Upon entering a beautifully decorated clearing you see that in the corner there appears to be a troll bride" +
+                " she swiftly tells you that she is very sad due to the fact that she was ditched at the alter by her troll husband to be and warns that his " +
+                "good for nothing buns of rock might still be dwelling within this cave system. She looks to you for reassurance of her beauty and " +
+                "will not let you pass until you convince her of her beauty. ", true);
 
-        Room room6 = new Room(null, sunRay, "Upon entering the dark room you see that in the corner there appears to be a troll bride" +
-                "she swiftly tells you that she is very sad due to the fact that she was ditched at the alter by her troll husband to be and warns that he's" +
-                "good for nothing buns of rock might still be dwelling within this cave system. She points out one of the gifts left by a guest and suggests that it might be useful to you", true);
-        //TODO Add a key to room 6
-        Room room7 = new Room(troll, null, "You enter the room and see a macho man of a troll - chest puffed out ready to attack what do you do? ..", false);
+        Room room6 = new Room(null, sunRay, "Upon entering this room there seems to be a gift that was left behind from the wedding reception. " +
+                "It has the label \"for my arch nemesis – curse you for stealing the love of my life\"… hopefully someone broke the news to him or her", true);
+//TODO Add a key to room 6
+                Room room7 = new Room(troll, null, "You enter the room and see a macho man of a troll - chest puffed out ready to attack, " +
+                        "this must be the groom. He looks like he is ready to attack! ..", false);
 
 
-        //Todo Add treasure to this room once the enemy is defeated.
+//Todo Add treasure to this room once the enemy is defeated.
         Room room8 = new Room(boneBoy, null, "Upon entering the room you see a skeleton in the corner that suddenly comes to life only to mock your life's " +
-                "choices and question your own sanity and why you are in fact wondering through a system of caves all alone.. He begins to start hitting you with inappropriate " +
-                "bones - this could cause some damage if you don't do something quickly! If only you picked up some kind of mallet ", false);
+                "choices and question your own sanity and why you are in fact wondering through a system of forest all alone fighting sheep and stealing wedding gifts" +
+                "he reveals that he teleported you here and wiped you memory so that he may take your fleshy body to use as his own .. He begins to start hitting you with inappropriate " +
+                "bones in order to render you unconscious  - this could cause some damage if you don't do something quickly! If only you picked up some kind of mallet ", false);
+
 
         //N 0
         //S 1

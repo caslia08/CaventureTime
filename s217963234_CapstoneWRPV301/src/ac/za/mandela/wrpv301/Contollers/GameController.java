@@ -50,15 +50,10 @@ public class GameController implements Initializable {
     public AnchorPane mainAnchorPane;
     public VBox vboxContainer;
     public Rectangle playerIcon;
-
-
     public ImageView itemImageView;
     public Label lblItemName;
-    public Label lblDescription;
-
-
+    public Text txtDesc;
     public Boolean restarted;
-
     public Stage stage;
 
     @FXML
@@ -80,8 +75,6 @@ public class GameController implements Initializable {
                 BackgroundSize.DEFAULT);
         vboxContainer.setBackground(new Background(mainBI));
         this.restarted = false;
-
-
     }
 
     @FXML
@@ -96,6 +89,7 @@ public class GameController implements Initializable {
         if(chosenFile != null)
         {
             try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(chosenFile))) {
+                reset();
                 newGame = (AdventureGame) inputStream.readObject();
                 player = newGame.getPlayer();
                 txtMain.setText(newGame.look());
@@ -149,16 +143,16 @@ public class GameController implements Initializable {
             txtMain.clear();
         } else if (input.equals("start")) {
             if(this.newGame == null) {
-                this.newGame = new AdventureGame(mapPane, playerIcon);
-                newGame.startGame();
-                player = newGame.getPlayer();
-                setUpInventory();
                 if(restarted) {
-                    mapPane.getChildren().clear();
-                    newGame.setMapPane(mapPane);
-                    player.setLocation(newGame.getStart());
-                    newGame.reDrawMap(playerIcon);
+                    reset();
+
+                }else {
+                    this.newGame = new AdventureGame(mapPane, playerIcon);
+                    newGame.startGame();
+                    player = newGame.getPlayer();
+                    setUpInventory();
                 }
+
                 txtMain.setText(newGame.look());
             }
             else {
@@ -213,12 +207,27 @@ public class GameController implements Initializable {
         observableItems.addAll(player.getInventory());
         lbxItems.setItems(observableItems);
 
-        //TODO add pop up for visual
         lbxItems.setOnMouseClicked(event -> {
             Item curItem = lbxItems.getSelectionModel().getSelectedItem();
             Stage itemStage = itemStage(stage, curItem);
             itemStage.show();
         });
+    }
+
+    private void restart()
+    {
+            mapPane.getChildren().clear();
+            this.newGame = new AdventureGame(mapPane, playerIcon);
+            newGame.startGame();
+            player = newGame.getPlayer();
+            setUpInventory();
+    }
+
+    private void reset()
+    {
+        mapPane.getChildren().clear();
+        newGame =null;
+        player = null;
     }
 
     private Stage itemStage(Stage owner, Item item)
@@ -238,11 +247,12 @@ public class GameController implements Initializable {
         itemImageView.setFitWidth(250);
         itemImageView.setPreserveRatio(true);
         lblItemName.setStyle("-fx-font-size: 30px");
+        txtDesc.setWrappingWidth(250);
 
         itemInfo.setPrefWidth(250);
         imageInfo.getChildren().addAll(itemImageView, lblItemName);
         imageInfo.setAlignment(Pos.CENTER);
-        itemInfo.getChildren().addAll(lblHeading, lblDescription);
+        itemInfo.getChildren().addAll(lblHeading, txtDesc);
         itemInfo.setAlignment(Pos.CENTER);
 
 
@@ -255,7 +265,7 @@ public class GameController implements Initializable {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(owner);
         stage.setTitle("Item Descriptions ");
-        stage.setWidth(800);
+        stage.setWidth(600);
         stage.setHeight(350);
         return stage;
     }
@@ -268,8 +278,10 @@ public class GameController implements Initializable {
         HBox hBoxMainContainer = new HBox();
         Pane controls = new Pane();
         Pane info = new Pane();
+        Label lblTitle = new Label("Control List");
+        lblTitle.setStyle("-fx-font-size: 30px");
 
-        Label lblcontrols = new Label(" grab <item name>" +
+        Label lblControls = new Label(" grab <item name>" +
                 "\n use <item name>" +
                 "\n drop <item name>" +
                 "\n inspect <item name>" +
@@ -278,7 +290,7 @@ public class GameController implements Initializable {
                 "\n south " +
                 "\n east " +
                 "\n west");
-        controls.getChildren().add(lblcontrols);
+        controls.getChildren().add(lblControls);
 
 
         Label lblInfo = new Label("grabs and item and adds it to inventory" +
@@ -292,12 +304,15 @@ public class GameController implements Initializable {
                 "\n moves player west");
 
         lblInfo.setStyle("-fx-font-size: 20px");
-        lblcontrols.setStyle("-fx-font-size: 20px");
+        lblControls.setStyle("-fx-font-size: 20px");
 
         info.getChildren().addAll(lblInfo);
         hBoxMainContainer.setAlignment(Pos.CENTER);
-        hBoxMainContainer.getChildren().addAll(lblcontrols, info);
-        root.getChildren().add(hBoxMainContainer);
+        hBoxMainContainer.getChildren().addAll(lblControls, info);
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(lblTitle, hBoxMainContainer);
+        root.getChildren().addAll(vBox);
         stage.setScene(new Scene(root));
         stage.initStyle(StageStyle.UTILITY);
         stage.setResizable(false);
@@ -311,7 +326,7 @@ public class GameController implements Initializable {
     public void initData(Item item)
     {
         lblItemName = new Label(item.getName());
-        lblDescription = new Label(item.getDesc());
+        txtDesc = new Text(item.getDesc());
         itemImageView = new ImageView(new Image(item.getImageURL()));
     }
 

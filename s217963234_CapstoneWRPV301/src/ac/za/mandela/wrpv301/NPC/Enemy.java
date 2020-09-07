@@ -44,11 +44,10 @@ public class Enemy extends NonPlayableCharacter {
             mapController.removeNpcIcon(room);
             item.useItem();
             mapController.updateTooltip(room);
-            return item.getName() + " worked! You have defeated " + this.getName();
+            return this.getPositiveResult() +"\n" + item.getName() + " worked! You have defeated " + this.getName();
         } else {
             player.takeDamage(this);
-            return "Oh no the " + item.getName()+ " did not work! You have been hurt!";
-
+            return this.getPositiveResult() +"\n." + "The " + item.getName()+ " did not work! You have been hurt!";
         }
     }
 

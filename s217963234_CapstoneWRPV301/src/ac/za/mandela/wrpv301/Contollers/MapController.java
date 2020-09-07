@@ -41,8 +41,8 @@ public class MapController {
         playerIcon.setWidth(30);
         playerIcon.setHeight(30);
         playerIcon.setFill(new ImagePattern(icon));
-        this.x = playerIcon.getX();
-        this.y = playerIcon.getY();
+        x= playerIcon.getLayoutX();
+        y=playerIcon.getLayoutY();
     }
 
     public void setPlayer(Player player) {
@@ -67,42 +67,44 @@ public class MapController {
         updateMap();
     }
 
-    private TranslateTransition getDir(int dir, TranslateTransition translateTransition) {
+    private void getDir(int dir, TranslateTransition translateTransition) {
         switch (dir) {
             case 0: //NORTH
             {
-                translateTransition.setByY(-140);
-                translateTransition.setByX(0);
+                //translateTransition.setByY(-140);
+                //translateTransition.setByX(0);
                 y-=140;
 
             }
             break;
             case 1://SOUTH
             {
-                translateTransition.setByY(140);
-                translateTransition.setByX(0);
+                //translateTransition.setByY(140);
+                //translateTransition.setByX(0);
                 y+=140;
 
             }
             break;
             case 2://EAST
             {
-                translateTransition.setByY(0);
-                translateTransition.setByX(180);
+                //translateTransition.setByY(0);
+                //translateTransition.setByX(180);
                 x+=180;
 
             }
             break;
             case 3://WEST
             {
-                translateTransition.setByY(0);
-                translateTransition.setByX(-180);
+                //translateTransition.setByY(0);
+                //translateTransition.setByX(-180);
                 x-=180;
             }
             break;
         }
         player.setXY(x, y);
-        return translateTransition;
+        playerIcon.setLayoutX(x);
+        playerIcon.setLayoutY(y);
+        //return translateTransition;
     }
 
     public void drawAllRooms() {
@@ -110,11 +112,13 @@ public class MapController {
         Room curRoom = rooms.get(0);
         curRoom.setDiscovered(true);
         curRoom.setXY(15, 310);
+
         StackPane newRoom = createRoom(curRoom);
         newRoom.setLayoutX(curRoom.getX());
         newRoom.setLayoutY(curRoom.getY());
         pane.getChildren().add(newRoom);
         roomStackPanes.add(newRoom);
+
         if(!player.getCurrentLocation().equals(curRoom))
             newRoom.setVisible(false);
         //pane.getChildren().get(pane.getChildren().size() - 1).toBack();
@@ -183,7 +187,6 @@ public class MapController {
     private void updateRooms() {
         if (player.getCurrentLocation().getDiscovered() == true) {
             player.getCurrentLocation().getRoomStackPane().setVisible(true);
-
         }
     }
 
@@ -203,12 +206,14 @@ public class MapController {
             }
         }
         StackPane curStackRoom = player.getCurrentLocation().getRoomStackPane();
-        System.out.println(curStackRoom.getLayoutX());
-        System.out.println(curStackRoom.getLayoutY());
-        playerIcon.setLayoutX(player.getCurrentLocation().getX()+20);
-        playerIcon.setLayoutY(player.getCurrentLocation().getY()+20);
+        playerIcon.setLayoutX(player.getX());
+        playerIcon.setLayoutY(player.getY());
+        System.out.println(player.getX());
+        System.out.println(player.getY());
+
         pane.getChildren().add(playerIcon);
     }
+
 
     private void updateConnections()
     {
@@ -310,7 +315,6 @@ public class MapController {
         curStackPane.getChildren().remove(curRect);
         room.setItemRect(null);
     }
-
     public void removeNpcIcon(Room room)
     {
         StackPane curStackPane = room.getRoomStackPane();

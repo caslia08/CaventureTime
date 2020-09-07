@@ -130,7 +130,6 @@ public class Room implements Serializable {
             {
                 connection.checkLock(room, this);
             }
-
             key.useItem();
             room.setIsLocked(false);
             return "The "+ key.getName() +" worked! The room has been unlocked!";
