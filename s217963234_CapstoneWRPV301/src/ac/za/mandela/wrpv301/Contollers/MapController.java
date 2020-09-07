@@ -5,10 +5,8 @@ import ac.za.mandela.wrpv301.NPC.NonPlayableCharacter;
 import ac.za.mandela.wrpv301.Player.Player;
 import ac.za.mandela.wrpv301.Room.Connection;
 import ac.za.mandela.wrpv301.Room.Room;
-import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -17,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.awt.font.TextHitInfo;
 import java.util.ArrayList;
 
 public class MapController {
@@ -25,7 +25,6 @@ public class MapController {
     public Pane pane;
     public Rectangle playerIcon;
     public Group group;
-    TranslateTransition tl;
     ArrayList<Room> rooms;
     private ArrayList<StackPane> roomStackPanes = new ArrayList<StackPane>();
     private ArrayList<Connection> pathConnection = new ArrayList<Connection>();
@@ -34,7 +33,6 @@ public class MapController {
 
     public MapController(Pane pane, Rectangle playerIcon) {
         this.playerIcon = playerIcon;
-        //player.setPlayerIcon(playerIcon);
         playerIcon.setVisible(true);
         this.pane = pane;
         Image icon = new Image(MapController.class.getResourceAsStream("/Images/female.png"));
@@ -54,11 +52,8 @@ public class MapController {
     }
 
     public void move(int direction) {
-        this.tl = new TranslateTransition();
-        this.getDir(direction, tl);
-        tl.setDuration(Duration.seconds(1));
-        tl.setNode(playerIcon);
-        tl.playFromStart();
+        this.getDir(direction);
+
         this.group = new Group();
         group.getChildren().addAll(playerIcon);
         pane.getChildren().add(playerIcon);
@@ -67,36 +62,27 @@ public class MapController {
         updateMap();
     }
 
-    private void getDir(int dir, TranslateTransition translateTransition) {
+    private void getDir(int dir) {
         switch (dir) {
             case 0: //NORTH
             {
-                //translateTransition.setByY(-140);
-                //translateTransition.setByX(0);
                 y-=140;
-
             }
             break;
             case 1://SOUTH
             {
-                //translateTransition.setByY(140);
-                //translateTransition.setByX(0);
                 y+=140;
-
             }
             break;
             case 2://EAST
             {
-                //translateTransition.setByY(0);
-                //translateTransition.setByX(180);
-                x+=180;
 
+                x+=180;
             }
             break;
             case 3://WEST
             {
-                //translateTransition.setByY(0);
-                //translateTransition.setByX(-180);
+
                 x-=180;
             }
             break;
@@ -104,7 +90,6 @@ public class MapController {
         player.setXY(x, y);
         playerIcon.setLayoutX(x);
         playerIcon.setLayoutY(y);
-        //return translateTransition;
     }
 
     public void drawAllRooms() {
@@ -205,11 +190,10 @@ public class MapController {
                 }
             }
         }
-        StackPane curStackRoom = player.getCurrentLocation().getRoomStackPane();
         playerIcon.setLayoutX(player.getX());
         playerIcon.setLayoutY(player.getY());
-        System.out.println(player.getX());
-        System.out.println(player.getY());
+        x = player.getX();
+        y = player.getY();
 
         pane.getChildren().add(playerIcon);
     }
